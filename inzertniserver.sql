@@ -80,6 +80,8 @@ CREATE TABLE `Users`
 	`ID` INT NOT NULL,
 	`Username` VARCHAR(50) NOT NULL,
 	`Password` VARCHAR(50) NOT NULL,
+	`Firstname` VARCHAR(50) NULL,
+	`Surname` VARCHAR(50) NULL,
 	`Email` VARCHAR(50) NULL,
 	`Phone` VARCHAR(50) NULL,
 	`CreationTime` DATETIME NOT NULL,
