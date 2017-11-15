@@ -12,20 +12,30 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <title>Title</title>
+
 </head>
 <body>
 <form:form method="POST" modelAttribute="user">
     <fieldset>
         <div class="container">
+
+            <div class="form-group">
             <label><b>Email</b></label>
-            <form:input path="email" type="text" placeholder="Enter Email" required="true" />
+            <form:input path="email" class="form-control" type="text" placeholder="Enter Email" required="true" />
+            </div>
 
+            <div class="form-group">
             <label><b>Password</b></label>
-            <form:input path="password" type="password" placeholder="Enter Password" id="psw" required ="true"/>
+            <form:input path="password" class="form-control" type="password" placeholder="Enter Password" id="psw" required ="true"/>
+            </div>
 
+            <div class="form-group">
             <label><b>Repeat Password</b></label>
-            <input type="password" placeholder="Repeat Password" id="psw-repeat" required ="true">
+            <input type="password" class="form-control" placeholder="Repeat Password" id="psw-repeat" required ="true">
+            </div>
 
             <div class="clearfix">
                 <button type="button"  class="cancelbtn">Cancel</button>
