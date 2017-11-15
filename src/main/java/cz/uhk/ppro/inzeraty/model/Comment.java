@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name = "Comments", schema = "inzeraty")
 public class Comment {
     @Id
     @GeneratedValue
@@ -11,6 +12,10 @@ public class Comment {
     private String comment;
     private Timestamp postDate;
 
+    @ManyToOne
+    private Advert advert;
+
+    @ManyToOne User user;
 
     public int getId() {
         return id;

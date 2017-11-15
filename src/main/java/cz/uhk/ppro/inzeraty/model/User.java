@@ -1,9 +1,12 @@
 package cz.uhk.ppro.inzeraty.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
+@Table(name = "Users", schema = "inzeraty")
 public class User {
 
     @Id
@@ -11,12 +14,20 @@ public class User {
     private int id;
     private String username;
     private String password;
-    private String firstName;
+    private String firstname;
     private String surname;
     private String email;
     private String phone;
     private Timestamp creationTime;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Advert> adverts;
+
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
 
     public int getId() {
         return id;
@@ -44,13 +55,14 @@ public class User {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstName) {
+        this.firstname = firstName;
     }
+
 
     public String getSurname() {
         return surname;
@@ -59,6 +71,7 @@ public class User {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
 
     public String getEmail() {
         return email;
@@ -86,6 +99,14 @@ public class User {
         this.creationTime = creationTime;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -96,7 +117,7 @@ public class User {
         if (id != user.id) return false;
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (!firstName.equals(user.firstName)) return false;
+        if (!firstname.equals(user.firstname)) return false;
         if (!surname.equals(user.surname)) return false;
         if (!email.equals(user.email)) return false;
         if (!phone.equals(user.phone)) return false;
@@ -108,7 +129,7 @@ public class User {
         int result = id;
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + firstName.hashCode();
+        result = 31 * result + firstname.hashCode();
         result = 31 * result + surname.hashCode();
         result = 31 * result + email.hashCode();
         result = 31 * result + phone.hashCode();

@@ -1,14 +1,23 @@
 package cz.uhk.ppro.inzeraty.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "Roles", schema = "inzeraty", catalog = "")
+@Table(name = "Roles", schema = "inzeraty")
 public class Role {
+
     @Id
     @GeneratedValue
     private int id;
     private String name;
+
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    private List<User> users;
+
+    public Role() {
+        this.name = "USER";
+    }
 
     public int getId() {
         return id;
@@ -18,12 +27,21 @@ public class Role {
         this.id = id;
     }
 
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     @Override

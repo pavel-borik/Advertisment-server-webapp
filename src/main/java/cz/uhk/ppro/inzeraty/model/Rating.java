@@ -4,12 +4,14 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name = "Ratings", schema = "inzeraty", catalog = "")
 public class Rating {
     @Id
     @GeneratedValue
     private int id;
     private String rating;
     private Timestamp postDate;
+
 
 
     public int getId() {
@@ -28,6 +30,7 @@ public class Rating {
     public void setRating(String rating) {
         this.rating = rating;
     }
+
 
 
     public Timestamp getPostDate() {

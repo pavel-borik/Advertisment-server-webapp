@@ -1,13 +1,18 @@
 package cz.uhk.ppro.inzeraty.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "Categories", schema = "inzeraty")
 public class Category {
     @Id
     @GeneratedValue
     private int id;
     private String name;
+
+    @OneToMany(mappedBy = "category")
+    private List<Advert> adverts;
 
     public int getId() {
         return id;
@@ -16,6 +21,7 @@ public class Category {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public String getName() {
         return name;

@@ -3,8 +3,10 @@ package cz.uhk.ppro.inzeraty.model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.List;
 
 @Entity
+@Table(name = "Adverts", schema = "inzeraty")
 public class Advert {
     @Id
     @GeneratedValue
@@ -14,6 +16,16 @@ public class Advert {
     private String description;
     private Timestamp timestamp;
     private String location;
+
+    @ManyToOne
+    private Category category;
+
+    @ManyToOne
+    private User user;
+
+    @OneToMany(mappedBy = "advert")
+    private List<Comment> comments;
+
 
 
     public int getId() {
@@ -25,6 +37,7 @@ public class Advert {
     }
 
 
+
     public String getName() {
         return name;
     }
@@ -32,6 +45,7 @@ public class Advert {
     public void setName(String name) {
         this.name = name;
     }
+
 
 
     public byte[] getImage() {
