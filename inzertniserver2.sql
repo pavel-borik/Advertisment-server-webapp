@@ -105,76 +105,76 @@ CREATE TABLE `Users`
 
 /* Create Primary Keys, Indexes, Uniques, Checks */
 
-ALTER TABLE `Adverts` 
+ALTER TABLE `Adverts`
  ADD INDEX `IXFK_Adverts_Categories` (`CategoryID` ASC)
 ;
 
-ALTER TABLE `Adverts` 
+ALTER TABLE `Adverts`
  ADD INDEX `IXFK_Adverts_Users` (`UserID` ASC)
 ;
 
-ALTER TABLE `Comments` 
+ALTER TABLE `Comments`
  ADD INDEX `IXFK_Comments_Adverts` (`AdvertID` ASC)
 ;
 
-ALTER TABLE `Comments` 
+ALTER TABLE `Comments`
  ADD INDEX `IXFK_Comments_Author` (`AuthorID` ASC)
 ;
 
-ALTER TABLE `Comments` 
+ALTER TABLE `Comments`
  ADD INDEX `IXFK_Comments_CommentedUser` (`CommentedUserID` ASC)
 ;
 
-ALTER TABLE `Ratings` 
+ALTER TABLE `Ratings`
  ADD INDEX `IXFK_Ratings_Author` (`AuthorID` ASC)
 ;
 
-ALTER TABLE `Ratings` 
+ALTER TABLE `Ratings`
  ADD INDEX `IXFK_Ratings_RatedUser` (`RatedUserID` ASC)
 ;
 
-ALTER TABLE `Users` 
+ALTER TABLE `Users`
  ADD INDEX `IXFK_Users_Roles` (`Role` ASC)
 ;
 
 /* Create Foreign Key Constraints */
 
-ALTER TABLE `Adverts` 
+ALTER TABLE `Adverts`
  ADD CONSTRAINT `FK_Adverts_Categories`
 	FOREIGN KEY (`CategoryID`) REFERENCES `Categories` (`ID`) ON DELETE Restrict ON UPDATE Restrict
 ;
 
-ALTER TABLE `Adverts` 
+ALTER TABLE `Adverts`
  ADD CONSTRAINT `FK_Adverts_Users`
 	FOREIGN KEY (`UserID`) REFERENCES `Users` (`ID`) ON DELETE Restrict ON UPDATE Restrict
 ;
 
-ALTER TABLE `Comments` 
+ALTER TABLE `Comments`
  ADD CONSTRAINT `FK_Comments_Adverts`
 	FOREIGN KEY (`AdvertID`) REFERENCES `Adverts` (`ID`) ON DELETE Restrict ON UPDATE Restrict
 ;
 
-ALTER TABLE `Comments` 
+ALTER TABLE `Comments`
  ADD CONSTRAINT `FK_Comments_Author`
 	FOREIGN KEY (`AuthorID`) REFERENCES `Users` (`ID`) ON DELETE Restrict ON UPDATE Restrict
 ;
 
-ALTER TABLE `Comments` 
+ALTER TABLE `Comments`
  ADD CONSTRAINT `FK_Comments_CommentedUser`
 	FOREIGN KEY (`CommentedUserID`) REFERENCES `Users` (`ID`) ON DELETE Restrict ON UPDATE Restrict
 ;
 
-ALTER TABLE `Ratings` 
+ALTER TABLE `Ratings`
  ADD CONSTRAINT `FK_Ratings_Author`
 	FOREIGN KEY (`AuthorID`) REFERENCES `Users` (`ID`) ON DELETE Restrict ON UPDATE Restrict
 ;
 
-ALTER TABLE `Ratings` 
+ALTER TABLE `Ratings`
  ADD CONSTRAINT `FK_Ratings_RatedUser`
 	FOREIGN KEY (`RatedUserID`) REFERENCES `Users` (`ID`) ON DELETE Restrict ON UPDATE Restrict
 ;
 
-ALTER TABLE `Users` 
+ALTER TABLE `Users`
  ADD CONSTRAINT `FK_Users_Roles`
 	FOREIGN KEY (`Role`) REFERENCES `Roles` (`ID`) ON DELETE Restrict ON UPDATE Restrict
 ;
