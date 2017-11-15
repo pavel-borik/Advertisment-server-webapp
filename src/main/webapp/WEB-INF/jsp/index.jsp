@@ -15,6 +15,7 @@
 </head>
 <body>
     <h1>Hello</h1>
-    <a href="registration">register</a>
+    <a href="registration">Register</a>
+    <a href="advert">Insert advertisment</a>
 </body>
 </html>

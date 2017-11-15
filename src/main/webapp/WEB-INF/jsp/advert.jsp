@@ -21,16 +21,9 @@
     <fieldset>
 
         <div class="container">
-
-
             <div class="form-group">
             <label><b>Name</b></label>
             <form:input path="name" class="form-control" type="text" placeholder="Enter Name" required="true" />
-            </div>
-
-            <div class="form-group">
-            <label><b>Image</b></label>
-            <form:input path="image" class="form control file" type="file" required="true" />
             </div>
 
             <div class="form-group">
@@ -41,6 +34,11 @@
             <div class="form-group">
             <label><b>Description</b></label>
             <form:input path="description" class="form-control" type="textarea" placeholder="Description" required ="true"/>
+            </div>
+
+            <div class="form-group">
+                <label><b>Image</b></label>
+                <form:input path="image" class="form control file" type="file" />
             </div>
 
             <div class="clearfix">

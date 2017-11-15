@@ -23,10 +23,9 @@
         <div class="container">
 
             <div class="form-group">
-            <label><b>Email</b></label>
-            <form:input path="email" class="form-control" type="text" placeholder="Enter Email" required="true" />
+                <label><b>Username</b></label>
+                <form:input path="username" class="form-control" type="text" placeholder="Enter Password" required ="true"/>
             </div>
-
             <div class="form-group">
             <label><b>Password</b></label>
             <form:input path="password" class="form-control" type="password" placeholder="Enter Password" id="psw" required ="true"/>
@@ -34,7 +33,20 @@
 
             <div class="form-group">
             <label><b>Repeat Password</b></label>
-            <input type="password" class="form-control" placeholder="Repeat Password" id="psw-repeat" required ="true">
+            <input type="password" class="form-control" placeholder="Repeat Password" id="psw-repeat" required="true">
+            </div>
+            <div class="form-group">
+                <label><b>Email</b></label>
+                <form:input path="email" class="form-control" type="email" placeholder="Enter Email" required="true" />
+            </div>
+            <div class="form-group">
+                <label><b>First name</b></label>
+                <form:input path="firstname" class="form-control" type="text" placeholder="Enter first name" required ="true"/>
+            </div>
+
+            <div class="form-group">
+                <label><b>Surname</b></label>
+                <form:input path="surname" class="form-control" type="text" placeholder="Enter surname" required ="true"/>
             </div>
 
             <div class="clearfix">
