@@ -24,11 +24,11 @@
 
             <div class="form-group">
                 <label><b>Username</b></label>
-                <form:input path="username" class="form-control" type="text" placeholder="Enter Password" required ="true"/>
+                <form:input path="username" class="form-control" type="text" placeholder="Enter username" required ="true"/>
             </div>
             <div class="form-group">
             <label><b>Password</b></label>
-            <form:input path="password" class="form-control" type="password" placeholder="Enter Password" id="psw" required ="true"/>
+            <form:input path="password" class="form-control" type="password" placeholder="Enter password" id="psw" required ="true"/>
             </div>
 
             <div class="form-group">
