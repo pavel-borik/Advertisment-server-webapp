@@ -15,7 +15,8 @@ public class Comment {
     @ManyToOne
     private Advert advert;
 
-    @ManyToOne User user;
+    @ManyToOne
+    private User author;
 
     public int getId() {
         return id;
@@ -39,6 +40,22 @@ public class Comment {
 
     public void setPostDate(Timestamp postDate) {
         this.postDate = postDate;
+    }
+
+    public Advert getAdvert() {
+        return advert;
+    }
+
+    public void setAdvert(Advert advert) {
+        this.advert = advert;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     @Override

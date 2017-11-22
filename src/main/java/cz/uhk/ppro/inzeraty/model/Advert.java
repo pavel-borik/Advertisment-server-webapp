@@ -27,7 +27,6 @@ public class Advert {
     private List<Comment> comments;
 
 
-
     public int getId() {
         return id;
     }
@@ -81,6 +80,30 @@ public class Advert {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override

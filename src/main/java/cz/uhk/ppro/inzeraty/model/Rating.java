@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "Ratings", schema = "inzeraty", catalog = "")
+@Table(name = "Ratings", schema = "inzeraty")
 public class Rating {
     @Id
     @GeneratedValue
@@ -12,7 +12,11 @@ public class Rating {
     private String rating;
     private Timestamp postDate;
 
+    @ManyToOne
+    private User author;
 
+    @ManyToOne
+    private User ratedUser;
 
     public int getId() {
         return id;
@@ -22,7 +26,6 @@ public class Rating {
         this.id = id;
     }
 
-
     public String getRating() {
         return rating;
     }
@@ -31,14 +34,28 @@ public class Rating {
         this.rating = rating;
     }
 
-
-
     public Timestamp getPostDate() {
         return postDate;
     }
 
     public void setPostDate(Timestamp postDate) {
         this.postDate = postDate;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public User getRatedUser() {
+        return ratedUser;
+    }
+
+    public void setRatedUser(User ratedUser) {
+        this.ratedUser = ratedUser;
     }
 
     @Override
