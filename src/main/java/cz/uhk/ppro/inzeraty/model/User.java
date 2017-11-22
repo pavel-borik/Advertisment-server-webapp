@@ -1,5 +1,7 @@
 package cz.uhk.ppro.inzeraty.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -12,15 +14,23 @@ public class User {
     @Id
     @GeneratedValue
     private int id;
+
+    @NotEmpty
+    @Column(unique = true)
     private String username;
+    @NotEmpty
     private String password;
+    @NotEmpty
     private String firstname;
+    @NotEmpty
     private String surname;
+    @NotEmpty
     private String email;
     private String phone;
+    @NotNull
     private Timestamp creationTime;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Role role;
 
     @OneToMany(mappedBy = "user")

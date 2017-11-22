@@ -1,6 +1,9 @@
 package cz.uhk.ppro.inzeraty.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
@@ -11,9 +14,12 @@ public class Advert {
     @Id
     @GeneratedValue
     private int id;
+    @NotEmpty
     private String name;
     private byte[] image;
+    @NotEmpty
     private String description;
+    @NotNull
     private Timestamp timestamp;
     private String location;
 

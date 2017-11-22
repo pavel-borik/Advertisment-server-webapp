@@ -1,5 +1,7 @@
 package cz.uhk.ppro.inzeraty.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,9 +12,11 @@ public class Role {
     @Id
     @GeneratedValue
     private int id;
+
+    @NotEmpty
     private String name;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "role")
     private List<User> users;
 
     public Role() {
