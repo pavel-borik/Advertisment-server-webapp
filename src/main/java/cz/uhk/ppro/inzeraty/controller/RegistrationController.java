@@ -4,11 +4,13 @@ import cz.uhk.ppro.inzeraty.model.Role;
 import cz.uhk.ppro.inzeraty.model.User;
 import cz.uhk.ppro.inzeraty.repository.UserRepository;
 import cz.uhk.ppro.inzeraty.repository.jpa.JpaUserRepositoryImpl;
+import cz.uhk.ppro.inzeraty.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -17,18 +19,22 @@ import java.sql.Timestamp;
 @Controller
 public class RegistrationController {
 
+    private final UserService userService;
+
     @Autowired
-    UserRepository userRepo = new JpaUserRepositoryImpl();
+    RegistrationController(UserService userService) {this.userService = userService;}
 
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String register(@ModelAttribute("user") User user) {
-        System.out.println(user.getEmail() + " "+ user.getPassword());
-        user.setCreationTime(new Timestamp(System.currentTimeMillis()));
-        System.out.println(user.getCreationTime());
-        user.setRole(new Role());
-        userRepo.save(user);
-        return "redirect:registrationSuccess";
+        ModelAndView mv = new ModelAndView();
+
+        if(userService.findByUsername(user.getUsername()).isPresent() == false){
+            userService.save(user);
+            return "redirect:registrationSuccess";
+        }
+
+        return "redirect:registration?unsuccesful";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
