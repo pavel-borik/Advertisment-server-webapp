@@ -25,6 +25,13 @@
             <label><b>Name</b></label>
             <form:input path="name" class="form-control" type="text" placeholder="Enter Name" required="true" />
             </div>
+            <div class="form-group">
+            <form:select name="category" path ="category">
+                <c:forEach items="${categories}" var="categ">
+                    <form:option value="${categ.name}" />
+                </c:forEach>
+            </form:select>
+            </div>
 
             <div class="form-group">
             <label><b>Location</b></label>

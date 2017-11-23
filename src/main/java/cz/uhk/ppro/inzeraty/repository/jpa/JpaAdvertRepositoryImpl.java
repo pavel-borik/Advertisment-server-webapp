@@ -17,7 +17,7 @@ public class JpaAdvertRepositoryImpl implements AdvertRepository{
 
     @Override
     public List<Advert> findAll() {
-        return null;
+        return em.createQuery("select ad from Advert ad").getResultList();
     }
 
     @Override

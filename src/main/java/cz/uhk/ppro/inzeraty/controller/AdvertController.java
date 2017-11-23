@@ -1,45 +1,54 @@
 package cz.uhk.ppro.inzeraty.controller;
 
 import cz.uhk.ppro.inzeraty.model.Advert;
+import cz.uhk.ppro.inzeraty.model.Category;
 import cz.uhk.ppro.inzeraty.model.User;
-import cz.uhk.ppro.inzeraty.repository.AdvertRepository;
-import cz.uhk.ppro.inzeraty.repository.UserRepository;
-import cz.uhk.ppro.inzeraty.repository.jpa.JpaAdvertRepositoryImpl;
-import cz.uhk.ppro.inzeraty.repository.jpa.JpaUserRepositoryImpl;
+import cz.uhk.ppro.inzeraty.service.AdvertService;
+import cz.uhk.ppro.inzeraty.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AdvertController {
+    private final AdvertService advertService;
+    private final UserService userService;
 
     @Autowired
-    AdvertRepository advertRepo = new JpaAdvertRepositoryImpl();
+    public AdvertController(AdvertService advertService, UserService userService) {
+        this.advertService = advertService;
+        this.userService = userService;
+    }
 
-    @Autowired
-    UserRepository userRepo = new JpaUserRepositoryImpl();
 
     @RequestMapping(value = "/advert", method = RequestMethod.POST)
     public String create(@ModelAttribute("advert") Advert advert) {
-        System.out.println(advert.getName() + " "+ advert.getDescription());
-        advert.setTimestamp(new Timestamp(System.currentTimeMillis()));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
-        advert.setUser(userRepo.findByUsername(currentPrincipalName).get());
-        advert.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        advertRepo.save(advert);
+        User user = userService.findByUsername(currentPrincipalName).get();
+        advertService.saveAdvert(advert, user);
         return "redirect:advertSuccess";
     }
 
     @RequestMapping(value = "/advert", method = RequestMethod.GET)
-    public String showAdvertForm(@ModelAttribute("advert") Advert advert) {
-        return "advert";
+    public ModelAndView showAdvertForm(@ModelAttribute("advert") Advert advert, ModelMap model) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("advert");
+        List<Category> categoryList;
+        categoryList = advertService.findAllCategories();
+        model.put("categories", categoryList);
+        return mav;
     }
 
     @RequestMapping(value = "/advertSuccess")
