@@ -32,7 +32,7 @@ public class AdvertController {
     }
 
 
-    @RequestMapping(value = "/advert", method = RequestMethod.POST)
+    @RequestMapping(value = "/advert/new", method = RequestMethod.POST)
     public String create(@ModelAttribute("advert") Advert advert) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
@@ -41,13 +41,13 @@ public class AdvertController {
         return "redirect:advertSuccess";
     }
 
-    @RequestMapping(value = "/advert", method = RequestMethod.GET)
-    public ModelAndView showAdvertForm(@ModelAttribute("advert") Advert advert, ModelMap model) {
+    @RequestMapping(value = "/advert/new", method = RequestMethod.GET)
+    public ModelAndView showAdvertForm(@ModelAttribute("advert") Advert advert, ModelMap modelMap) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("advert");
         List<Category> categoryList;
         categoryList = advertService.findAllCategories();
-        model.put("categories", categoryList);
+        modelMap.put("categories", categoryList);
         return mav;
     }
 

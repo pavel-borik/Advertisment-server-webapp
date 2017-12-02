@@ -1,5 +1,7 @@
 package cz.uhk.ppro.inzeraty.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -9,7 +11,10 @@ public class Rating {
     @Id
     @GeneratedValue
     private int id;
-    private String rating;
+
+    @NotEmpty
+    private String ratingText;
+
     private Timestamp postDate;
 
     @ManyToOne
@@ -26,12 +31,12 @@ public class Rating {
         this.id = id;
     }
 
-    public String getRating() {
-        return rating;
+    public String getRatingText() {
+        return ratingText;
     }
 
-    public void setRating(String rating) {
-        this.rating = rating;
+    public void setRatingText(String rating) {
+        this.ratingText = rating;
     }
 
     public Timestamp getPostDate() {
@@ -66,7 +71,7 @@ public class Rating {
         Rating rating1 = (Rating) o;
 
         if (id != rating1.id) return false;
-        if (rating != null ? !rating.equals(rating1.rating) : rating1.rating != null) return false;
+        if (ratingText != null ? !ratingText.equals(rating1.ratingText) : rating1.ratingText != null) return false;
         if (postDate != null ? !postDate.equals(rating1.postDate) : rating1.postDate != null) return false;
 
         return true;
@@ -75,7 +80,7 @@ public class Rating {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (rating != null ? rating.hashCode() : 0);
+        result = 31 * result + (ratingText != null ? ratingText.hashCode() : 0);
         result = 31 * result + (postDate != null ? postDate.hashCode() : 0);
         return result;
     }

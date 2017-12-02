@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface UserRepository {
     List<User> findAll();
-    User findById(int id);
+    Optional<User> findById(int id);
     Optional<User> findByUsername(String username);
     void save(User user);
 }

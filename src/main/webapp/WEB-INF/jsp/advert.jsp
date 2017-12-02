@@ -1,15 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: pb
-  Date: 12.11.17
-  Time: 15:00
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html>
 <head>
     <title>Title</title>
@@ -49,8 +46,8 @@
             </div>
 
             <div class="clearfix">
-                <button type="button"  class="cancelbtn">Cancel</button>
-                <button type="submit" class="createbtn">Create</button>
+                <a class="btn btn-default" role ="button" href='<spring:url value="/" htmlEscape="true"/>'>Cancel</a>
+                <button type="submit" class="btn btn-primary" role="button">Create</button>
             </div>
         </div>
     </fieldset>

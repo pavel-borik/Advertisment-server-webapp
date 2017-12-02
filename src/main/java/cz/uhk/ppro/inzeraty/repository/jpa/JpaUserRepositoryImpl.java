@@ -23,10 +23,10 @@ public class JpaUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User findById(int id) {
+    public Optional<User> findById(int id) {
         Query query = this.em.createQuery("SELECT u FROM User u WHERE u.id =:id");
         query.setParameter("id", id);
-        return (User) query.getSingleResult();
+        return (Optional<User>) query.setMaxResults(1).getResultList().stream().findFirst();
     }
 
     @Override
