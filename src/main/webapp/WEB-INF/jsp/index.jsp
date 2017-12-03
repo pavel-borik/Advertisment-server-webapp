@@ -24,14 +24,35 @@
         </p>
     </sec:authorize>
 
-    <a href="<spring:url value="/registration" htmlEscape="true"/>">Register</a>
-    <a href='<spring:url value="/advert/new" htmlEscape="true"/>'>Insert advertisment</a>
-    <sec:authorize access="isAuthenticated()">
-        <a href="<spring:url value="/logout" />">Log out</a>
-    </sec:authorize>
-    <sec:authorize access="isAnonymous()">
-        <a href="<spring:url value="/login" />">Log in</a>
-    </sec:authorize>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <sec:authorize access="isAuthenticated()">
+                            <a class="nav-link" href="<spring:url value="/logout" />">Log out</a>
+                        </sec:authorize>
+                        <sec:authorize access="isAnonymous()">
+                            <a class="nav-link" href="<spring:url value="/login" />">Log in</a>
+                        </sec:authorize>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href=href="<spring:url value="/registration" htmlEscape="true"/>">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href='<spring:url value="/advert/new" htmlEscape="true"/>'>Insert advertisement</a>
+                    </li>
+                    <%-- <li class="nav-item dropdown">
+                         <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                         <div class="dropdown-menu" aria-labelledby="dropdown08">
+                             <a class="dropdown-item" href="#">Action</a>
+                             <a class="dropdown-item" href="#">Another action</a>
+                             <a class="dropdown-item" href="#">Something else here</a>
+                         </div>
+                     </li>--%>
+                </ul>
+        </nav>
 
     <h1>Dodělám: vylepším styling + pagination</h1>
 
@@ -40,28 +61,29 @@
     <div class="col-md-6 col-md-offset-3">
         <div class="inzeratyContainer">
 
-    <c:forEach items="${adverts}" var="ad">
-        <div class="inzeratBody">
-        <div class="InzeratNadpis">
-            <h2>
-                    <c:out value="${ad.name}" />
-               </h2>
-        </div>
+            <c:forEach items="${adverts}" var="ad">
+                <div class="inzeratBody">
+                    <div class="InzeratNadpis">
+                        <h2>
+                            <c:out value="${ad.name}"/>
+                        </h2>
+                    </div>
+                    <div class="category">
+                        <c:out value="${ad.category.name}"/>
+                    </div>
+                    <div class="box">
 
-        <c:out value="${ad.category.name}" />
-        <div class="box">
-
-         <div class="InzeratText">
-            <p>
-           <c:out value="${ad.description}" />
-            </p>
-        </div>
-        </div>
-            <c:out value="${ad.location}" />
-            <br/>
-            <c:out value="${ad.timestamp}" />
-        </div>
-    </c:forEach>
+                        <div class="InzeratText">
+                            <p>
+                                <c:out value="${ad.description}"/>
+                            </p>
+                        </div>
+                    </div>
+                    <c:out value="${ad.location}"/>
+                    <br/>
+                    <c:out value="${ad.timestamp}"/>
+                </div>
+            </c:forEach>
 
         </div>
     </div>
