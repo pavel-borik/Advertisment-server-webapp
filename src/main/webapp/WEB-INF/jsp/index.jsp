@@ -38,7 +38,7 @@
                         </sec:authorize>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href=href="<spring:url value="/registration" htmlEscape="true"/>">Register</a>
+                        <a class="nav-link" href="<spring:url value="/registration" htmlEscape="true"/>">Register</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href='<spring:url value="/advert/new" htmlEscape="true"/>'>Insert advertisement</a>
