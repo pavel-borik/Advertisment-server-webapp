@@ -8,6 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
+
 	<name>inzeraty</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -98,6 +99,7 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>4.2.3.RELEASE</version>
 		</dependency>
+
 	</dependencies>
 
 
