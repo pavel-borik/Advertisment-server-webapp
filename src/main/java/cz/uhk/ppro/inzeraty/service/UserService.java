@@ -34,7 +34,7 @@ public class UserService {
         Optional<User> u = userRepo.findByUsername(user.getUsername());
         if(!u.isPresent()) {
             user.setCreationTime(new Timestamp(System.currentTimeMillis()));
-           // user.setRole(roleRepo.findByName("USER").get());
+           user.setRole(roleRepo.findByName("USER").get());
             userRepo.save(user);
         }
     }
