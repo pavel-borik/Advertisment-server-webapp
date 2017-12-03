@@ -1,0 +1,44 @@
+div.InzeratNadpis {
+    font-size: 16px;
+    margin-bottom: 4px;
+    color:#062c33 ;
+}
+
+div.InzeratText
+{
+    color: #1b1e21;
+    margin-bottom: 6px;
+
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+}
+
+.InzeratBody,.InzeratBodyDetail
+{
+    padding: 0 5px 0 5px;
+    overflow: hidden;
+
+}
+
+.inzeratBody
+{
+    border-bottom: 1px solid gray;
+    padding-bottom: 5px;
+    padding-top: 5px;
+
+
+}
+
+.bodyContainer {
+    max-width: 55%;
+    margin: auto;
+}
+
+.inzeratyContainer {
+
+    margin:auto;
+}
+
+
+
