@@ -2,6 +2,7 @@ package cz.uhk.ppro.inzeraty.controller;
 
 import cz.uhk.ppro.inzeraty.model.Advert;
 import cz.uhk.ppro.inzeraty.model.Category;
+import cz.uhk.ppro.inzeraty.model.Comment;
 import cz.uhk.ppro.inzeraty.model.User;
 import cz.uhk.ppro.inzeraty.service.AdvertService;
 import cz.uhk.ppro.inzeraty.service.UserService;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AdvertController {
@@ -28,8 +30,30 @@ public class AdvertController {
         this.userService = userService;
     }
 
+    @RequestMapping(value ="/adverts/{advertId}", method = RequestMethod.GET)
+    public ModelAndView showAdvert(@PathVariable("advertId") int advertId, @ModelAttribute("addedComment") Comment comment) {
+        ModelAndView mav = new ModelAndView("advertDetail");
 
-    @RequestMapping(value = "/advert/new", method = RequestMethod.POST)
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> loggedUser = userService.findByUsername(authentication.getName());
+        if(loggedUser.isPresent()) mav.addObject("userId", loggedUser.get().getId());
+
+        Optional<Advert> advert = advertService.findById(advertId);
+        mav.addObject("comments", advert.get().getComments());
+        if(advert.isPresent()) mav.addObject("advert", advert.get());
+
+        return mav;
+    }
+
+    @RequestMapping(value ="/adverts/{advertId}", method = RequestMethod.POST)
+    public String addRating(@PathVariable("advertId") int advertId, @ModelAttribute("addedComment") Comment comment) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> author = userService.findByUsername(authentication.getName());
+        if(author.isPresent()) advertService.saveComment(comment, author.get(), advertId);
+        return "redirect:/adverts/{advertId}";
+    }
+
+    @RequestMapping(value = "/adverts/new", method = RequestMethod.POST)
     public String create(@ModelAttribute("advert") Advert advert) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
@@ -38,7 +62,7 @@ public class AdvertController {
         return "redirect:advertSuccess";
     }
 
-    @RequestMapping(value = "/advert/new", method = RequestMethod.GET)
+    @RequestMapping(value = "/adverts/new", method = RequestMethod.GET)
     public ModelAndView showAdvertForm(@ModelAttribute("advert") Advert advert, ModelMap modelMap) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("advert");

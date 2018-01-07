@@ -9,7 +9,7 @@ public class Comment {
     @Id
     @GeneratedValue
     private int id;
-    private String comment;
+    private String commentText;
     private Timestamp postDate;
 
     @ManyToOne
@@ -26,12 +26,12 @@ public class Comment {
         this.id = id;
     }
 
-    public String getComment() {
-        return comment;
+    public String getCommentText() {
+        return commentText;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setCommentText(String comment) {
+        this.commentText = comment;
     }
 
     public Timestamp getPostDate() {
@@ -66,7 +66,7 @@ public class Comment {
         Comment comment1 = (Comment) o;
 
         if (id != comment1.id) return false;
-        if (comment != null ? !comment.equals(comment1.comment) : comment1.comment != null) return false;
+        if (commentText != null ? !commentText.equals(comment1.commentText) : comment1.commentText != null) return false;
         if (postDate != null ? !postDate.equals(comment1.postDate) : comment1.postDate != null) return false;
 
         return true;
@@ -75,7 +75,7 @@ public class Comment {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (comment != null ? comment.hashCode() : 0);
+        result = 31 * result + (commentText != null ? commentText.hashCode() : 0);
         result = 31 * result + (postDate != null ? postDate.hashCode() : 0);
         return result;
     }

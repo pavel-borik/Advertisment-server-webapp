@@ -41,7 +41,7 @@
                         <a class="nav-link" href="<spring:url value="/registration" htmlEscape="true"/>">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href='<spring:url value="/advert/new" htmlEscape="true"/>'>Insert advertisement</a>
+                        <a class="nav-link" href='<spring:url value="/adverts/new" htmlEscape="true"/>'>Insert advertisement</a>
                     </li>
                     <%-- <li class="nav-item dropdown">
                          <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
@@ -65,7 +65,10 @@
                 <div class="inzeratBody">
                     <div class="InzeratNadpis">
                         <h2>
-                            <c:out value="${ad.name}"/>
+                            <spring:url value="/adverts/{advertId}" var = "advertUrl">
+                                <spring:param name="advertId" value="${ad.id}"/>
+                            </spring:url>
+                            <a href="${fn:escapeXml(advertUrl)}"><c:out value="${ad.name}"/></a>
                         </h2>
                     </div>
                     <div class="category">

@@ -34,12 +34,14 @@
     User's ratings:
     <c:forEach items="${ratings}" var="rating">
         <p>
-        <c:out value="${rating.author.username}"/>
+        <spring:url value="/users/{userId}" var = "userUrl">
+            <spring:param name="userId" value="${rating.author.id}"/>
+        </spring:url>
+        <a href="${fn:escapeXml(userUrl)}"><c:out value="${rating.author.username}"/></a>
         <c:out value="${rating.postDate}"/><br>
         <c:out value="${rating.ratingText}"/>
         </p>
     </c:forEach>
-
 
     <p>
     <form:form method="POST" modelAttribute="addedRating">

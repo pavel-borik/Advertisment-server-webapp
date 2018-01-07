@@ -6,14 +6,23 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class JpaAdvertRepositoryImpl implements AdvertRepository{
 
     @PersistenceContext
     private EntityManager em;
+
+    @Override
+    public Optional<Advert> findById(int id) {
+        Query query = this.em.createQuery("SELECT a FROM Advert a WHERE a.id =:id");
+        query.setParameter("id", id);
+        return (Optional<Advert>) query.setMaxResults(1).getResultList().stream().findFirst();
+    }
 
     @Override
     public List<Advert> findAll() {
