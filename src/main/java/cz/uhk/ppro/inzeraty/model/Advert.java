@@ -1,6 +1,7 @@
 package cz.uhk.ppro.inzeraty.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,6 +27,9 @@ public class Advert {
     @NotEmpty
     private String price;
 
+    @Transient
+    private MultipartFile mpf;
+
     @ManyToOne
     private Category category;
 
@@ -45,7 +49,6 @@ public class Advert {
     }
 
 
-
     public String getName() {
         return name;
     }
@@ -53,7 +56,6 @@ public class Advert {
     public void setName(String name) {
         this.name = name;
     }
-
 
 
     public byte[] getImage() {
@@ -121,6 +123,14 @@ public class Advert {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public MultipartFile getMpf() {
+        return mpf;
+    }
+
+    public void setMpf(MultipartFile mpf) {
+        this.mpf = mpf;
     }
 
     @Override

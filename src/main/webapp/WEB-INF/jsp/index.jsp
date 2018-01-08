@@ -87,7 +87,7 @@
                     <br/>
                     Price: <c:out value="${ad.price}"/>
                     <br/>Added: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${ad.timestamp}" />
-                    <img src="${ad.image}"/>
+                    <img src="/advertImage/imageDisplay?advertId=${ad.id}" height="160" width = "160"/>
                 </div>
             </c:forEach>
 

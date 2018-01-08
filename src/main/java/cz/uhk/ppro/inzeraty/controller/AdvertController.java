@@ -12,8 +12,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +56,13 @@ public class AdvertController {
     }
 
     @RequestMapping(value = "/adverts/new", method = RequestMethod.POST)
-    public String create(@ModelAttribute("advert") Advert advert) {
+    public String create(@ModelAttribute("advert") Advert advert) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User user = userService.findByUsername(currentPrincipalName).get();
+        MultipartFile f = advert.getMpf();
+        byte[] img = f.getBytes();
+        advert.setImage(img);
         advertService.saveAdvert(advert, user);
         return "redirect:advertSuccess";
     }
