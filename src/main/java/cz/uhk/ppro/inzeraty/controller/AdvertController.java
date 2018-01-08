@@ -72,7 +72,7 @@ public class AdvertController {
         return mav;
     }
 
-    @RequestMapping(value = "/advertSuccess")
+    @RequestMapping(value = "/adverts/advertSuccess")
     public String showAdvertSuccess() {
         return "advertSuccess";
     }

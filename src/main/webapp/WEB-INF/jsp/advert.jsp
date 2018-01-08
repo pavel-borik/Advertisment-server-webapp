@@ -41,6 +41,11 @@
             </div>
 
             <div class="form-group">
+                <label><b>Price</b></label>
+                <form:input path="price" class="form-control" type="textarea" placeholder="Price" required ="true"/>
+            </div>
+
+            <div class="form-group">
                 <label><b>Image</b></label>
                 <form:input path="image" class="form control file" type="file" />
             </div>

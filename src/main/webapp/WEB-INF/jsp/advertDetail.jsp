@@ -23,11 +23,17 @@
 
     <h3>Advert detail</h3>
     <p>
+        <h4>${advert.name}</h4>
+        <p>Description:${advert.description}</p>
+        <p>Location: ${advert.location}</p>
+        <p>Price: ${advert.price}</p>
+        <p>Posted by:
         <spring:url value="/users/{userId}" var = "userUrl">
             <spring:param name="userId" value="${advert.user.id}"/>
         </spring:url>
         <a href="${fn:escapeXml(userUrl)}"><c:out value="${advert.user.username}"/></a><br>
-        ${advert.name}<br>
+        <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${advert.timestamp}" /><br>
+        </p>
     </p>
 
     <h3>Comments:</h3>
@@ -36,7 +42,8 @@
             <spring:url value="/users/{userId}" var = "userUrl">
                 <spring:param name="userId" value="${comment.author.id}"/>
             </spring:url>
-            <a href="${fn:escapeXml(userUrl)}"><c:out value="${comment.author.username}"/></a><br>
+            <a href="${fn:escapeXml(userUrl)}"><c:out value="${comment.author.username}"/></a>
+            <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${comment.postDate}" /><br>
             <c:out value="${comment.commentText}"/><br>
         </p>
     </c:forEach>

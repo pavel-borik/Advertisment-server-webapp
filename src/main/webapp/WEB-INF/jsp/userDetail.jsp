@@ -28,7 +28,8 @@
         Last name: ${user.surname}<br>
         E-mail: ${user.email}<br>
         Phone: ${user.phone}<br>
-        Registered: ${user.creationTime}<br>
+        Registered: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${user.creationTime}" /><br>
+        <br>
     </p>
 
     User's ratings:
@@ -38,7 +39,8 @@
             <spring:param name="userId" value="${rating.author.id}"/>
         </spring:url>
         <a href="${fn:escapeXml(userUrl)}"><c:out value="${rating.author.username}"/></a>
-        <c:out value="${rating.postDate}"/><br>
+            <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${rating.postDate}" /><br>
+            <br>
         <c:out value="${rating.ratingText}"/>
         </p>
     </c:forEach>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -78,13 +79,15 @@
 
                         <div class="InzeratText">
                             <p>
-                                <c:out value="${ad.description}"/>
+                               Description: <c:out value="${ad.description}"/>
                             </p>
                         </div>
                     </div>
-                    <c:out value="${ad.location}"/>
+                    Location: <c:out value="${ad.location}"/>
                     <br/>
-                    <c:out value="${ad.timestamp}"/>
+                    Price: <c:out value="${ad.price}"/>
+                    <br/>Added: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${ad.timestamp}" />
+                    <img src="${ad.image}"/>
                 </div>
             </c:forEach>
 

@@ -21,7 +21,10 @@ public class Advert {
     private String description;
     @NotNull
     private Timestamp timestamp;
+    @NotEmpty
     private String location;
+    @NotEmpty
+    private String price;
 
     @ManyToOne
     private Category category;
@@ -112,10 +115,18 @@ public class Advert {
         this.comments = comments;
     }
 
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Advert)) return false;
 
         Advert advert = (Advert) o;
 
@@ -125,8 +136,10 @@ public class Advert {
         if (description != null ? !description.equals(advert.description) : advert.description != null) return false;
         if (timestamp != null ? !timestamp.equals(advert.timestamp) : advert.timestamp != null) return false;
         if (location != null ? !location.equals(advert.location) : advert.location != null) return false;
-
-        return true;
+        if (price != null ? !price.equals(advert.price) : advert.price != null) return false;
+        if (category != null ? !category.equals(advert.category) : advert.category != null) return false;
+        if (user != null ? !user.equals(advert.user) : advert.user != null) return false;
+        return comments != null ? comments.equals(advert.comments) : advert.comments == null;
     }
 
     @Override
@@ -137,6 +150,10 @@ public class Advert {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (category != null ? category.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (comments != null ? comments.hashCode() : 0);
         return result;
     }
 }
