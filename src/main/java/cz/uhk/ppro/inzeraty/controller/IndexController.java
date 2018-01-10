@@ -18,18 +18,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class WelcomeController {
+public class IndexController {
     UserService userService;
     private final AdvertService advertService;
 
     @Autowired
-    public WelcomeController(UserService userService, AdvertService advertService) {
+    public IndexController(UserService userService, AdvertService advertService) {
         this.userService = userService;
         this.advertService = advertService;
     }
 
     @RequestMapping(value ="/", method = RequestMethod.GET)
-    public ModelAndView welcome(@ModelAttribute("advert") Advert advert, ModelMap modelMap) {
+    public ModelAndView showIndex(@ModelAttribute("advert") Advert advert, ModelMap modelMap) {
         ModelAndView mav = new ModelAndView("/index");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated()) {

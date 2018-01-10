@@ -32,6 +32,24 @@
         <br>
     </p>
 
+    User's adverts:
+    <c:forEach items="${adverts}" var="advert">
+        <p>
+            <spring:url value="/adverts/{advertId}" var = "advertUrl">
+                <spring:param name="advertId" value="${advert.id}"/>
+            </spring:url>
+            <a href="${fn:escapeXml(advertUrl)}"><c:out value="${advert.name}"/></a>
+
+            <%--Logged in user can edit his adverts--%>
+            <c:if test = "${isLoggedUsersProfile}">
+                <spring:url value="/adverts/{advertId}/edit" var = "editAdvert">
+                     <spring:param name="advertId" value="${advert.id}"/>
+                </spring:url>
+                <a href="${fn:escapeXml(editAdvert)}">Edit</a>
+            </c:if>
+        </p>
+    </c:forEach>
+
     User's ratings:
     <c:forEach items="${ratings}" var="rating">
         <p>
@@ -39,8 +57,8 @@
             <spring:param name="userId" value="${rating.author.id}"/>
         </spring:url>
         <a href="${fn:escapeXml(userUrl)}"><c:out value="${rating.author.username}"/></a>
-            <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${rating.postDate}" /><br>
-            <br>
+        <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${rating.postDate}" /><br>
+        <br>
         <c:out value="${rating.ratingText}"/>
         </p>
     </c:forEach>

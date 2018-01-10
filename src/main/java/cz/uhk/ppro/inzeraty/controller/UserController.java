@@ -28,9 +28,20 @@ public class UserController {
     @RequestMapping(value ="/users/{userId}", method = RequestMethod.GET)
     public ModelAndView showOwner(@PathVariable("userId") int userId, @ModelAttribute("addedRating") Rating rating) {
         ModelAndView mav = new ModelAndView("userDetail");
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> loggedUser = userService.findByUsername(authentication.getName());
+
         Optional<User> user = userService.findById(userId);
-        mav.addObject("ratings", user.get().getRatingsReceived());
-        if(user.isPresent()) mav.addObject("user", user.get());
+        if(user.isPresent()) {
+            mav.addObject("ratings", user.get().getRatingsReceived());
+            mav.addObject("adverts", user.get().getAdverts());
+            mav.addObject("user", user.get());
+        }
+
+        if(loggedUser.isPresent() && user.isPresent() && loggedUser.get().getId() == user.get().getId())
+            mav.addObject("isLoggedUsersProfile", true);
+
         return mav;
     }
 

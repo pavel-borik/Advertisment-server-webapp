@@ -6,10 +6,12 @@ import cz.uhk.ppro.inzeraty.model.Comment;
 import cz.uhk.ppro.inzeraty.model.User;
 import cz.uhk.ppro.inzeraty.service.AdvertService;
 import cz.uhk.ppro.inzeraty.service.UserService;
+import cz.uhk.ppro.inzeraty.util.ImageDownscaler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,6 +64,7 @@ public class AdvertController {
         User user = userService.findByUsername(currentPrincipalName).get();
         MultipartFile f = advert.getMpf();
         byte[] img = f.getBytes();
+        img = ImageDownscaler.downscaleImage(img);
         advert.setImage(img);
         advertService.saveAdvert(advert, user);
         return "redirect:advertSuccess";
@@ -76,6 +79,24 @@ public class AdvertController {
         modelMap.put("categories", categoryList);
         return mav;
     }
+
+    @RequestMapping(value = "/adverts/{advertId}/edit", method = RequestMethod.GET)
+    public String initUpdateOwnerForm(@PathVariable("advertId") int advertId, Model model) {
+        Optional<Advert> a = this.advertService.findById(advertId);
+        if(a.isPresent()) model.addAttribute(a);
+        return "advert";
+    }
+
+//    @RequestMapping(value = "/owners/{ownerId}/edit", method = RequestMethod.POST)
+//    public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, @PathVariable("ownerId") int ownerId) {
+//        if (result.hasErrors()) {
+//            return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+//        } else {
+//            owner.setId(ownerId);
+//            this.clinicService.saveOwner(owner);
+//            return "redirect:/owners/{ownerId}";
+//        }
+//    }
 
     @RequestMapping(value = "/adverts/advertSuccess")
     public String showAdvertSuccess() {

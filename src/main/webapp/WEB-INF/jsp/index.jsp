@@ -30,17 +30,23 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
                         <sec:authorize access="isAuthenticated()">
-                            <a class="nav-link" href="<spring:url value="/logout" />">Log out</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<spring:url value="/logout" />">Log out</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="${fn:escapeXml(userUrl)}"/>My profile</a>
+                            </li>
                         </sec:authorize>
                         <sec:authorize access="isAnonymous()">
-                            <a class="nav-link" href="<spring:url value="/login" />">Log in</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<spring:url value="/login" />">Log in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<spring:url value="/registration" htmlEscape="true"/>">Register</a>
+                            </li>
                         </sec:authorize>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<spring:url value="/registration" htmlEscape="true"/>">Register</a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href='<spring:url value="/adverts/new" htmlEscape="true"/>'>Insert advertisement</a>
                     </li>
@@ -87,7 +93,7 @@
                     <br/>
                     Price: <c:out value="${ad.price}"/>
                     <br/>Added: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${ad.timestamp}" />
-                    <img src="/advertImage/imageDisplay?advertId=${ad.id}" height="160" width = "160"/>
+                    <img src="/advertImage/imageDisplay?advertId=${ad.id}"/>
                 </div>
             </c:forEach>
 
