@@ -92,7 +92,7 @@
                     Location: <c:out value="${ad.location}"/>
                     <br/>
                     Price: <c:out value="${ad.price}"/>
-                    <br/>Added: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${ad.timestamp}" />
+                    <br/>Last edited: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${ad.timestamp}" />
                     <img src="/advertImage/imageDisplay?advertId=${ad.id}"/>
                 </div>
             </c:forEach>

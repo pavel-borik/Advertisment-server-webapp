@@ -52,7 +52,7 @@
 
             <div class="clearfix">
                 <a class="btn btn-default" role ="button" href='<spring:url value="/" htmlEscape="true"/>'>Cancel</a>
-                <button type="submit" class="btn btn-primary" role="button">Create</button>
+                <button type="submit" class="btn btn-primary" role="button">Submit</button>
             </div>
         </div>
     </fieldset>
