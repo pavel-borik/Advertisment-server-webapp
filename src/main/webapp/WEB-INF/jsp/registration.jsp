@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: pb
-  Date: 12.11.17
-  Time: 15:00
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -27,13 +20,12 @@
                 <form:input path="username" class="form-control" type="text" placeholder="Enter username" required ="true"/>
             </div>
             <div class="form-group">
-            <label><b>Password</b></label>
-            <form:input path="password" class="form-control" type="password" placeholder="Enter password" id="psw" required ="true"/>
+                <label><b>Password</b></label>
+                <form:input path="password" class="form-control" type="password" placeholder="Enter password" id="psw" required ="true"/>
             </div>
-
             <div class="form-group">
-            <label><b>Repeat Password</b></label>
-            <input type="password" class="form-control" placeholder="Repeat Password" id="psw-repeat" required="true">
+                <label><b>Repeat Password</b></label>
+                <form:input path="passwordRepeat" class="form-control" type="password" placeholder="Repeat password" id="psw-repeat" required ="true"/>
             </div>
             <div class="form-group">
                 <label><b>Email</b></label>
