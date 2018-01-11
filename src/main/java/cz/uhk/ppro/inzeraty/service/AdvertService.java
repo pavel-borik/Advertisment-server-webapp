@@ -7,11 +7,14 @@ import cz.uhk.ppro.inzeraty.model.User;
 import cz.uhk.ppro.inzeraty.repository.AdvertRepository;
 import cz.uhk.ppro.inzeraty.repository.CategoryRepository;
 import cz.uhk.ppro.inzeraty.repository.CommentRepository;
+import cz.uhk.ppro.inzeraty.util.ImageDownscaler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -30,10 +33,21 @@ public class AdvertService {
     }
 
     @Transactional
-    public void saveAdvert(Advert ad, User user) {
-        ad.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        ad.setUser(user);
-        adRepo.save(ad);
+    public void saveAdvert(Advert advert, User user) {
+        MultipartFile f = advert.getMpf();
+        byte[] img = new byte[0];
+        try {
+            img = f.getBytes();
+            img = ImageDownscaler.downscaleImage(img);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        advert.setImage(img);
+
+        advert.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        advert.setUser(user);
+        adRepo.save(advert);
     }
 
     @Transactional

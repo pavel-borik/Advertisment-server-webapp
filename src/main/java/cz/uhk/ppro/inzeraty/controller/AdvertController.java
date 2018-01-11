@@ -20,8 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -95,16 +93,15 @@ public class AdvertController {
     }
 
     @RequestMapping(value = "/adverts/{advertId}/edit", method = RequestMethod.POST)
-    public String processUpdateOwnerForm(@Valid Advert advert, BindingResult result, @PathVariable("advertId") int advertId) throws IOException {
+    public String processUpdateOwnerForm(@Valid Advert advert, BindingResult result, @PathVariable("advertId") int advertId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> author = userService.findByUsername(authentication.getName());
 
-        MultipartFile f = advert.getMpf();
-        byte[] img = f.getBytes();
-        img = ImageDownscaler.downscaleImage(img);
-        advert.setImage(img);
-        advert.setId(advertId);
+        if(result.hasErrors()) {
+            return "redirect:/adverts/{advertId}/edit?error=true";
+        }
 
+        advert.setId(advertId);
         if(author.isPresent()) this.advertService.saveAdvert(advert, author.get());
         return "redirect:/adverts/{advertId}";
     }

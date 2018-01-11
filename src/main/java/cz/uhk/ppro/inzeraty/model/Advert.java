@@ -20,7 +20,7 @@ public class Advert {
     private byte[] image;
     @NotEmpty
     private String description;
-    @NotNull
+
     private Timestamp timestamp;
     @NotEmpty
     private String location;
