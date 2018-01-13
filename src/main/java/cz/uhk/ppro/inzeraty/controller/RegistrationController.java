@@ -21,12 +21,13 @@ public class RegistrationController {
     @Autowired
     RegistrationController(UserService userService) {this.userService = userService;}
 
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String showRegistrationForm(@ModelAttribute("user") UserDTO user) {
+        return "registration";
+    }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String register(@ModelAttribute("user") @Valid UserDTO userDTO, BindingResult result) {
-        ModelAndView mv = new ModelAndView();
-
-
+    public String registerNewUser(@ModelAttribute("user") @Valid UserDTO userDTO, BindingResult result) {
         if(result.hasErrors() || !userDTO.getPassword().equals(userDTO.getPasswordRepeat()))
             return "redirect:registration?unsuccesful";
 
@@ -38,12 +39,7 @@ public class RegistrationController {
         return "redirect:registration?unsuccesful";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String showRegistrationForm(@ModelAttribute("user") UserDTO user) {
-        return "registration";
-    }
-
-    @RequestMapping(value = "/registrationSuccess")
+    @RequestMapping(value = "/registration/registrationSuccess",  method = RequestMethod.GET)
     public String showRegistrationSuccess() {
         return "registrationSuccess";
     }

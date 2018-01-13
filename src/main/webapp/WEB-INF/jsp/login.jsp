@@ -12,31 +12,33 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
     <title>Title</title>
-
 </head>
 <body>
-<form:form method="POST" modelAttribute="user">
-    <fieldset>
-        <div class="container">
+    <div class="bodyContainer">
+        <jsp:include page="menu.jsp"/>
+        <h1>Log in:</h1>
 
-            <div class="form-group">
-                <label><b>Username</b></label>
-                <form:input path="username" class="form-control" type="text" placeholder="Enter username" required ="true"/>
-            </div>
-            <div class="form-group">
-                <label><b>Password</b></label>
-                <form:input path="password" class="form-control" type="password" placeholder="Enter Password" id="psw" required ="true"/>
-            </div>
+        <form:form method="POST" modelAttribute="user">
+            <fieldset>
+                    <div class="form-group">
+                        <label><b>Username</b></label>
+                        <form:input path="username" class="form-control" type="text" placeholder="Enter username" required ="true"/>
+                    </div>
+                    <div class="form-group">
+                        <label><b>Password</b></label>
+                        <form:input path="password" class="form-control" type="password" placeholder="Enter Password" id="psw" required ="true"/>
+                    </div>
 
-            <div class="clearfix">
-                <button type="submit" class="signupbtn">Log in</button>
-            </div>
-        </div>
-    </fieldset>
-</form:form>
+                    <div class="clearfix">
+                        <button type="submit" class="signupbtn">Log in</button>
+                    </div>
+            </fieldset>
+        </form:form>
+    </div>
 
 <script>
     var password = document.getElementById("psw")

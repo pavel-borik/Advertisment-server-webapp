@@ -6,7 +6,6 @@ import cz.uhk.ppro.inzeraty.model.Comment;
 import cz.uhk.ppro.inzeraty.model.User;
 import cz.uhk.ppro.inzeraty.service.AdvertService;
 import cz.uhk.ppro.inzeraty.service.UserService;
-import cz.uhk.ppro.inzeraty.util.ImageDownscaler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -57,33 +55,37 @@ public class AdvertController {
         return "redirect:/adverts/{advertId}";
     }
 
-    @RequestMapping(value = "/adverts/new", method = RequestMethod.POST)
-    public String create(@ModelAttribute("advert") Advert advert) throws IOException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user = userService.findByUsername(currentPrincipalName).get();
-        MultipartFile f = advert.getMpf();
-        byte[] img = f.getBytes();
-        img = ImageDownscaler.downscaleImage(img);
-        advert.setImage(img);
-        advertService.saveAdvert(advert, user);
-        return "redirect:advertSuccess";
-    }
-
     @RequestMapping(value = "/adverts/new", method = RequestMethod.GET)
-    public ModelAndView showAdvertForm(@ModelAttribute("advert") Advert advert, ModelMap modelMap) {
+    public ModelAndView showNewAdvertForm(@ModelAttribute("advert") Advert advert, ModelMap modelMap) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("advert");
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> loggedUser = userService.findByUsername(authentication.getName());
+        if(loggedUser.isPresent()) modelMap.addAttribute("userId", loggedUser.get().getId());
+
         List<Category> categoryList;
         categoryList = advertService.findAllCategories();
         modelMap.put("categories", categoryList);
         return mav;
     }
 
+    @RequestMapping(value = "/adverts/new", method = RequestMethod.POST)
+    public String createNewAdvert(@ModelAttribute("advert") Advert advert) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> loggedUser = userService.findByUsername(authentication.getName());
+        if(loggedUser.isPresent()) advertService.saveAdvert(advert, loggedUser.get());
+        return "redirect:advertSuccess";
+    }
+
     @RequestMapping(value = "/adverts/{advertId}/edit", method = RequestMethod.GET)
-    public String initUpdateOwnerForm(@PathVariable("advertId") int advertId, Model model) {
+    public String showEditAdvertForm(@PathVariable("advertId") int advertId, Model model) {
         Optional<Advert> a = this.advertService.findById(advertId);
         if(a.isPresent()) model.addAttribute("advert", a);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> loggedUser = userService.findByUsername(authentication.getName());
+        if(loggedUser.isPresent()) model.addAttribute("userId", loggedUser.get().getId());
 
         List<Category> categoryList;
         categoryList = advertService.findAllCategories();
@@ -93,7 +95,7 @@ public class AdvertController {
     }
 
     @RequestMapping(value = "/adverts/{advertId}/edit", method = RequestMethod.POST)
-    public String processUpdateOwnerForm(@Valid Advert advert, BindingResult result, @PathVariable("advertId") int advertId) {
+    public String processEditAdvert(@Valid Advert advert, BindingResult result, @PathVariable("advertId") int advertId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> author = userService.findByUsername(authentication.getName());
 
@@ -110,7 +112,6 @@ public class AdvertController {
     public String showAdvertSuccess() {
         return "advertSuccess";
     }
-
 
 }
 
