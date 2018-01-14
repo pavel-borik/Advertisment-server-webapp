@@ -3,11 +3,10 @@ package cz.uhk.ppro.inzeraty.repository.jpa;
 import cz.uhk.ppro.inzeraty.model.User;
 import cz.uhk.ppro.inzeraty.repository.UserRepository;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,9 +35,15 @@ public class JpaUserRepositoryImpl implements UserRepository {
         return (Optional<User>) query.setMaxResults(1).getResultList().stream().findFirst();
     }
 
-    @Transactional
     @Override
     public void save(User user) {
             this.em.persist(user);
+    }
+
+    @Override
+    public Collection<User> findByLastName(String lastName) {
+        Query query = this.em.createQuery("SELECT u FROM User u  WHERE u.surname LIKE :lastName");
+        query.setParameter("lastName", lastName + "%");
+        return query.getResultList();
     }
 }
