@@ -5,15 +5,18 @@ import cz.uhk.ppro.inzeraty.model.User;
 import cz.uhk.ppro.inzeraty.service.AdvertService;
 import cz.uhk.ppro.inzeraty.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +32,7 @@ public class IndexController {
     }
 
     @RequestMapping(value ="/", method = RequestMethod.GET)
-    public ModelAndView showIndex(@ModelAttribute("advert") Advert advert, ModelMap modelMap) {
+    public String showIndex(@ModelAttribute("advert") Advert advert, ModelMap modelMap, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("/index");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated()) {
@@ -40,8 +43,13 @@ public class IndexController {
         }
 
         List<Advert> advertList;
+        PagedListHolder pagedListHolder = new PagedListHolder(advertService.findAdverts());
         advertList = advertService.findAdverts();
-        mav.addObject("adverts", advertList);
-        return mav;
+        int page = ServletRequestUtils.getIntParameter(request,"p",0);
+        pagedListHolder.setPage(page);
+        pagedListHolder.setPageSize(4);
+        modelMap.put("pagedListHolder", pagedListHolder);
+        //mav.addObject("adverts", pagedListHolder);
+        return "index";
     }
 }

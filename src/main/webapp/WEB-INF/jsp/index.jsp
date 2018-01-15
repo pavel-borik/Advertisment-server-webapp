@@ -4,6 +4,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <html>
 <head>
@@ -22,8 +24,11 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     <div class="inzeratyContainer">
-
-                        <c:forEach items="${adverts}" var="ad">
+                        <jsp:useBean id="pagedListHolder" scope="request" type="org.springframework.beans.support.PagedListHolder"/>
+                            <c:url value="/" var="pagedLink">
+                                <c:param name="p" value="~"/>
+                            </c:url>
+                        <c:forEach items="${pagedListHolder.pageList}" var="ad">
                             <div class="inzeratBody">
                                 <div class="InzeratNadpis">
                                     <h2>
@@ -53,6 +58,7 @@
                         </c:forEach>
 
                     </div>
+                     <tg:paging pagedListHolder="${pagedListHolder}" pagedLink="${pagedLink}"></tg:paging>
                 </div>
             </div>
         </div>
