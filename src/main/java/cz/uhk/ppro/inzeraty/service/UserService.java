@@ -43,6 +43,7 @@ public class UserService {
         user.setEmail(userDTO.getEmail());
         user.setFirstname(userDTO.getFirstname());
         user.setSurname(userDTO.getSurname());
+        user.setPhone(userDTO.getPhoneNumber());
         user.setRole(roleRepo.findByName("USER").get());
         user.setCreationTime(new Timestamp(System.currentTimeMillis()));
         userRepo.save(user);

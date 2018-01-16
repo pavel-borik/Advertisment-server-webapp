@@ -38,14 +38,16 @@
                             <label><b>First name</b></label>
                             <form:input path="firstname" class="form-control" type="text" placeholder="Enter first name" required ="true"/>
                         </div>
-
                         <div class="form-group">
                             <label><b>Surname</b></label>
                             <form:input path="surname" class="form-control" type="text" placeholder="Enter surname" required ="true"/>
                         </div>
-
+                        <div class="form-group">
+                            <label><b>Phone number</b></label>
+                            <form:input path="phoneNumber" class="form-control" type="text" placeholder="Enter phone number"/>
+                        </div>
                         <div class="clearfix">
-                            <button type="button"  class="cancelbtn">Cancel</button>
+                            <a href="/"> <button type="button"  class="cancelbtn">Cancel</button></a>
                             <button type="submit" class="signupbtn">Sign Up</button>
                         </div>
                 </fieldset>

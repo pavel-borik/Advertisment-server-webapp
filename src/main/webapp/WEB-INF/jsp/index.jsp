@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -42,11 +42,22 @@
                     <div class="box">
                         <div class="InzeratText">
                             <p>
-                                 <b>Description:</b> <c:out value="${ad.description}"/>
+                                <%--If the description is longer than a certain value, abbreviation is applied--%>
+                                <c:set var="desc" value="${ad.description}" />
+
+                                <c:choose>
+                                    <c:when test="${fn:length(desc) > 50}">
+                                        <b>Description:</b> <c:out value="${fn:substring(desc,0,50)}"/>...
+                                    </c:when>
+
+                                    <c:otherwise>
+                                        <b>Description:</b> <c:out value="${ad.description}"/>
+                                    </c:otherwise>
+                                </c:choose>
                             </p>
                         </div>
                     </div>
-                    <span class="image right"> <img src="/advertImage/imageDisplay?advertId=${ad.id}"/></span>
+                    <span class="img-responsive pull-right"> <img src="/advertImage/imageDisplay?advertId=${ad.id}" alt=""/></span>
                     Location: <c:out value="${ad.location}"/>
                     <br/>
                     Price: <c:out value="${ad.price}"/>

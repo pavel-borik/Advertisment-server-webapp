@@ -25,6 +25,9 @@
                 <p>Description: ${advert.description}</p>
                 <p>Location: ${advert.location}</p>
                 <p>Price: ${advert.price}</p>
+            <p>Pictures:<br>
+                <span class="img-responsive"> <img src="/advertImage/imageDisplay?advertId=${advert.id}" alt=""/></span>
+            </p>
                 <p>Posted by:
                     <spring:url value="/users/{userId}" var = "userUrl">
                         <spring:param name="userId" value="${advert.user.id}"/>

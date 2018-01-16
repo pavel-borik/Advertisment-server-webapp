@@ -33,7 +33,7 @@ public class RegistrationController {
 
         if(userService.findByUsername(userDTO.getUsername()).isPresent() == false){
             userService.createNewUser(userDTO);
-            return "redirect:registrationSuccess";
+            return "redirect:registration/registrationSuccess";
         }
 
         return "redirect:registration?unsuccesful";
