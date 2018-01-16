@@ -27,23 +27,34 @@
                 Phone: ${user.phone}<br>
                 Registered: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${user.creationTime}" /><br>
             </p>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Advert Name</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
 
             <h3>User's adverts:</h3>
             <c:forEach items="${adverts}" var="advert">
                     <spring:url value="/adverts/{advertId}" var = "advertUrl">
                         <spring:param name="advertId" value="${advert.id}"/>
                     </spring:url>
-                    <a href="${fn:escapeXml(advertUrl)}"><c:out value="${advert.name}"/></a>
-
+                <tr>
+                    <td><a href="${fn:escapeXml(advertUrl)}"><c:out value="${advert.name}"/></a></td>
                     <%--Logged in user can edit his adverts--%>
                     <c:if test = "${isLoggedUsersProfile}">
                         <spring:url value="/adverts/{advertId}/edit" var = "editAdvert">
                              <spring:param name="advertId" value="${advert.id}"/>
                         </spring:url>
-                        <a href="${fn:escapeXml(editAdvert)}">Edit</a>
+                        <td> <a href="${fn:escapeXml(editAdvert)}">Edit</a></td>
                     </c:if>
+                </tr>
                 <br>
             </c:forEach>
+            </table>
+        </div>
             <br>
             <h3>User's ratings:</h3>
             <c:forEach items="${ratings}" var="rating">

@@ -42,7 +42,7 @@
                     <div class="box">
                         <div class="InzeratText">
                             <p>
-                                Description: <c:out value="${ad.description}"/>
+                                 <b>Description:</b> <c:out value="${ad.description}"/>
                             </p>
                         </div>
                     </div>

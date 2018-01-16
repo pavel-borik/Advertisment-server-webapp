@@ -41,7 +41,7 @@
 
             <div class="form-group">
             <label><b>Description</b></label>
-            <form:input path="description" class="form-control" type="textarea" placeholder="Description" required ="true"/>
+                <form:textarea path="description" class="form-control" rows="5" placeholder="Description" required ="true" />
             </div>
 
             <div class="form-group">
