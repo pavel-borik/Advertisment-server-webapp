@@ -42,14 +42,11 @@ public class IndexController {
             }
         }
 
-        List<Advert> advertList;
         PagedListHolder pagedListHolder = new PagedListHolder(advertService.findAdverts());
-        advertList = advertService.findAdverts();
         int page = ServletRequestUtils.getIntParameter(request,"p",0);
         pagedListHolder.setPage(page);
-        pagedListHolder.setPageSize(4);
+        pagedListHolder.setPageSize(10);
         modelMap.put("pagedListHolder", pagedListHolder);
-        //mav.addObject("adverts", pagedListHolder);
         return "index";
     }
 }

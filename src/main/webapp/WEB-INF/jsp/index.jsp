@@ -18,51 +18,46 @@
 <body>
     <div class="bodyContainer">
     <jsp:include page="menu.jsp"/>
-    <h1>Dodělám: vylepším styling + pagination</h1>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                    <div class="inzeratyContainer">
+    <section id="one" class="wrapper style1">
+        <div class="inner">
                         <jsp:useBean id="pagedListHolder" scope="request" type="org.springframework.beans.support.PagedListHolder"/>
                             <c:url value="/" var="pagedLink">
                                 <c:param name="p" value="~"/>
                             </c:url>
-                        <c:forEach items="${pagedListHolder.pageList}" var="ad">
-                            <div class="inzeratBody">
-                                <div class="InzeratNadpis">
-                                    <h2>
-                                        <spring:url value="/adverts/{advertId}" var = "advertUrl">
-                                            <spring:param name="advertId" value="${ad.id}"/>
-                                        </spring:url>
-                                        <a href="${fn:escapeXml(advertUrl)}"><c:out value="${ad.name}"/></a>
-                                    </h2>
-                                </div>
-                                <div class="category">
-                                    <c:out value="${ad.category.name}"/>
-                                </div>
-                                <div class="box">
-
-                                    <div class="InzeratText">
-                                        <p>
-                                           Description: <c:out value="${ad.description}"/>
-                                        </p>
-                                    </div>
-                                </div>
-                                Location: <c:out value="${ad.location}"/>
-                                <br/>
-                                Price: <c:out value="${ad.price}"/>
-                                <br/>Last edited: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${ad.timestamp}" />
-                                <img src="/advertImage/imageDisplay?advertId=${ad.id}"/>
-                            </div>
-                        </c:forEach>
-
+            <c:forEach items="${pagedListHolder.pageList}" var="ad">
+            <article class="feature left">
+                <div class="content">
+                    <div class="InzeratNadpis">
+                        <h2>
+                            <spring:url value="/adverts/{advertId}" var = "advertUrl">
+                                <spring:param name="advertId" value="${ad.id}"/>
+                            </spring:url>
+                            <a href="${fn:escapeXml(advertUrl)}"><c:out value="${ad.name}"/></a>
+                        </h2>
                     </div>
-                     <tg:paging pagedListHolder="${pagedListHolder}" pagedLink="${pagedLink}"></tg:paging>
+                    <div class="category">
+                        <c:out value="${ad.category.name}"/>
+                    </div>
+                    <div class="box">
+                        <div class="InzeratText">
+                            <p>
+                                Description: <c:out value="${ad.description}"/>
+                            </p>
+                        </div>
+                    </div>
+                    <span class="image right"> <img src="/advertImage/imageDisplay?advertId=${ad.id}"/></span>
+                    Location: <c:out value="${ad.location}"/>
+                    <br/>
+                    Price: <c:out value="${ad.price}"/>
+                    <br/>Last edited: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${ad.timestamp}" />
                 </div>
-            </div>
+            </article>
+            </c:forEach>
         </div>
-    </div>
+    </section>
+        <tg:paging pagedListHolder="${pagedListHolder}" pagedLink="${pagedLink}"></tg:paging>
+   </div>
 
 </body>
 </html>
