@@ -51,8 +51,14 @@
                     <br/>
                     Price: <c:out value="${ad.price}"/>
                     <br/>Last edited: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${ad.timestamp}" />
+                    <ul class="actions">
+                        <li>
+                            <a href="${fn:escapeXml(advertUrl)}" class="button alt">More</a>
+                        </li>
+                    </ul>
                 </div>
             </article>
+
             </c:forEach>
         </div>
     </section>
