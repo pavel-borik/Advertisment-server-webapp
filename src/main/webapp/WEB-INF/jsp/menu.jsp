@@ -8,7 +8,7 @@
 <sec:authorize access="isAuthenticated()">
     <p>Hello
         <spring:url value="/users/{userId}" var = "userUrl">
-            <spring:param name="userId" value="${userId}"/>
+            <spring:param name="userId" value="${loggedUserId}"/>
         </spring:url>
         <a href="${fn:escapeXml(userUrl)}"><sec:authentication property="principal.username" /></a>
     </p>
@@ -28,7 +28,7 @@
             </li>
             <li class="nav-item">
                 <spring:url value="/users/{userId}" var = "userUrl">
-                    <spring:param name="userId" value="${userId}"/>
+                    <spring:param name="userId" value="${loggedUserId}"/>
                 </spring:url>
                 <a class="nav-link" href="${fn:escapeXml(userUrl)}"/>My profile</a>
             </li>

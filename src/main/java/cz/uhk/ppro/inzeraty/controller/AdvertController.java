@@ -38,7 +38,7 @@ public class AdvertController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
-        if(loggedUser.isPresent()) mav.addObject("userId", loggedUser.get().getId());
+        if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         Optional<Advert> advert = advertService.findById(advertId);
         mav.addObject("comments", advert.get().getComments());
@@ -62,7 +62,7 @@ public class AdvertController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
-        if(loggedUser.isPresent()) modelMap.addAttribute("userId", loggedUser.get().getId());
+        if(loggedUser.isPresent()) modelMap.addAttribute("loggedUserId", loggedUser.get().getId());
 
         List<Category> categoryList;
         categoryList = advertService.findAllCategories();
@@ -85,7 +85,7 @@ public class AdvertController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
-        if(loggedUser.isPresent()) model.addAttribute("userId", loggedUser.get().getId());
+        if(loggedUser.isPresent()) model.addAttribute("loggedUserId", loggedUser.get().getId());
 
         List<Category> categoryList;
         categoryList = advertService.findAllCategories();
@@ -106,6 +106,12 @@ public class AdvertController {
         advert.setId(advertId);
         if(author.isPresent()) this.advertService.saveAdvert(advert, author.get());
         return "redirect:/adverts/{advertId}";
+    }
+
+    @PostMapping(value = "/adverts/{advertId}/delete")
+    public String processDeleteAdvert(@PathVariable("advertId") int advertId) {
+        advertService.removeAdvert(advertId);
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/adverts/advertSuccess")

@@ -26,7 +26,7 @@ public class JpaAdvertRepositoryImpl implements AdvertRepository{
 
     @Override
     public List<Advert> findAll() {
-        return em.createQuery("select ad from Advert ad").getResultList();
+        return em.createQuery("select ad from Advert ad order by ad.timestamp desc").getResultList();
     }
 
     @Override
@@ -38,5 +38,10 @@ public class JpaAdvertRepositoryImpl implements AdvertRepository{
         } else {
             em.persist(advert);
         }
+    }
+
+    @Override
+    public void remove(Advert advert) {
+        em.remove(advert);
     }
 }

@@ -49,8 +49,6 @@ public class UserServiceJpaTests {
         users = this.userService.findUsersByLastName("Smith");
 
         assertThat(users.size()).isEqualTo(found + 1);
-
-
     }
 
 }

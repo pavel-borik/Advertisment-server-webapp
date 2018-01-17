@@ -38,9 +38,12 @@ public class UserController {
             mav.addObject("adverts", user.get().getAdverts());
             mav.addObject("user", user.get());
         }
+        if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         if(loggedUser.isPresent() && user.isPresent() && loggedUser.get().getId() == user.get().getId())
             mav.addObject("isLoggedUsersProfile", true);
+
+
 
         return mav;
     }

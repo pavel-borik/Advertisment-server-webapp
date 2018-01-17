@@ -11,9 +11,9 @@ import cz.uhk.ppro.inzeraty.util.ImageDownscaler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
@@ -44,7 +44,6 @@ public class AdvertService {
         }
 
         advert.setImage(img);
-
         advert.setTimestamp(new Timestamp(System.currentTimeMillis()));
         advert.setUser(user);
         adRepo.save(advert);
@@ -75,5 +74,11 @@ public class AdvertService {
         comment.setAdvert(adRepo.findById(advertId).get());
         comment.setPostDate(new Timestamp(System.currentTimeMillis()));
         commentRepo.save(comment);
+    }
+
+    @Transactional
+    public void removeAdvert(int advertId) {
+        Optional<Advert> advert = adRepo.findById(advertId);
+        if(advert.isPresent()) adRepo.remove(advert.get());
     }
 }

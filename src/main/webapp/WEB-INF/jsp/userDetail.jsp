@@ -32,7 +32,9 @@
                 <thead>
                 <tr>
                     <th scope="col">Advert Name</th>
+                    <c:if test = "${isLoggedUsersProfile}">
                     <th scope="col">Action</th>
+                    </c:if>
                 </tr>
                 </thead>
 
@@ -43,12 +45,18 @@
                     </spring:url>
                 <tr>
                     <td><a href="${fn:escapeXml(advertUrl)}"><c:out value="${advert.name}"/></a></td>
-                    <%--Logged in user can edit his adverts--%>
+                    <%--Logged in user can edit or delete his adverts--%>
                     <c:if test = "${isLoggedUsersProfile}">
                         <spring:url value="/adverts/{advertId}/edit" var = "editAdvert">
                              <spring:param name="advertId" value="${advert.id}"/>
                         </spring:url>
-                        <td> <a href="${fn:escapeXml(editAdvert)}">Edit</a></td>
+                        <td> <a class="btn btn-info" href="${fn:escapeXml(editAdvert)}">Edit</a></td>
+
+                        <c:url var="deleteUrl" value="/adverts/${advert.id}/delete"/>
+                        <td><form:form action="${deleteUrl}" method="POST">
+                            <input id="advertId" name="advertId" type="hidden" value="<c:out value="${advert.id}"/>"/>
+                            <input type="submit" class="btn btn-danger" value="Delete" onClick="return confirm('Are you sure?')"/>
+                        </form:form></td>
                     </c:if>
                 </tr>
                 <br>

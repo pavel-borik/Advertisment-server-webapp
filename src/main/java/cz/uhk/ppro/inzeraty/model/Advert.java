@@ -36,7 +36,7 @@ public class Advert {
     @ManyToOne
     private User user;
 
-    @OneToMany(mappedBy = "advert")
+    @OneToMany(mappedBy = "advert", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 
 

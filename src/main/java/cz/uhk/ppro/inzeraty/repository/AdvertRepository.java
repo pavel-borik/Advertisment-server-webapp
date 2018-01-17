@@ -9,4 +9,5 @@ public interface AdvertRepository {
     Optional<Advert> findById(int id);
     List<Advert> findAll();
     void save(Advert advert);
+    void remove(Advert advert);
 }

@@ -38,7 +38,7 @@ public class IndexController {
         if (authentication.isAuthenticated()) {
             Optional<User> user = userService.findByUsername(authentication.getName());
             if(user.isPresent()) {
-                modelMap.put("userId", user.get().getId());
+                modelMap.put("loggedUserId", user.get().getId());
             }
         }
 
