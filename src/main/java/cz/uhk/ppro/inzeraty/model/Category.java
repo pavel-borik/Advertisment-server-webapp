@@ -1,5 +1,7 @@
 package cz.uhk.ppro.inzeraty.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,6 +11,8 @@ public class Category {
     @Id
     @GeneratedValue
     private int id;
+
+    @NotEmpty
     private String name;
 
     @OneToMany(mappedBy = "category")

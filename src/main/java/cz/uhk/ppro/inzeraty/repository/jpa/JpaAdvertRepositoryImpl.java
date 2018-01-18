@@ -30,6 +30,13 @@ public class JpaAdvertRepositoryImpl implements AdvertRepository{
     }
 
     @Override
+    public List<Advert> findAdvertsInCategory(int categoryId) {
+        Query query = this.em.createQuery("select ad from Advert ad where ad.category.id = :categoryId order by ad.timestamp desc");
+        query.setParameter("categoryId", categoryId);
+        return query.getResultList();
+    }
+
+    @Override
     @Transactional
     public void save(Advert advert) {
         Optional<Advert> a = this.findById(advert.getId());

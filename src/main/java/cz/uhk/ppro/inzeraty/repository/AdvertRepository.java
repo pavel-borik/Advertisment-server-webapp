@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface AdvertRepository {
     Optional<Advert> findById(int id);
     List<Advert> findAll();
+    List<Advert> findAdvertsInCategory(int categoryId);
     void save(Advert advert);
     void remove(Advert advert);
 }

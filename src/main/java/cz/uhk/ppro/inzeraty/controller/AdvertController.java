@@ -48,7 +48,7 @@ public class AdvertController {
     }
 
     @RequestMapping(value ="/adverts/{advertId}", method = RequestMethod.POST)
-    public String addRating(@PathVariable("advertId") int advertId, @ModelAttribute("addedComment") Comment comment) {
+    public String addRating(@PathVariable("advertId") int advertId, @ModelAttribute("addedComment") @Valid Comment comment) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> author = userService.findByUsername(authentication.getName());
         if(author.isPresent()) advertService.saveComment(comment, author.get(), advertId);
@@ -71,7 +71,7 @@ public class AdvertController {
     }
 
     @RequestMapping(value = "/adverts/new", method = RequestMethod.POST)
-    public String createNewAdvert(@ModelAttribute("advert") Advert advert) throws IOException {
+    public String createNewAdvert(@ModelAttribute("advert") @Valid Advert advert) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
         if(loggedUser.isPresent()) advertService.saveAdvert(advert, loggedUser.get());

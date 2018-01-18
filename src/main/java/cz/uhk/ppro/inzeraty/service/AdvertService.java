@@ -81,4 +81,9 @@ public class AdvertService {
         Optional<Advert> advert = adRepo.findById(advertId);
         if(advert.isPresent()) adRepo.remove(advert.get());
     }
+
+    @Transactional
+    public List findAdvertsInCategory(int categoryId) {
+        return adRepo.findAdvertsInCategory(categoryId);
+    }
 }
