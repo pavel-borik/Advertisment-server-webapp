@@ -27,43 +27,43 @@
                 Phone: ${user.phone}<br>
                 Registered: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${user.creationTime}" /><br>
             </p>
-        <div class="table-responsive">
+            <h3>User's adverts:</h3>
+
+            <div class="table-responsive">
+
             <table class="table">
                 <thead>
-                <tr>
-                    <th scope="col">Advert Name</th>
-                    <c:if test = "${isLoggedUsersProfile}">
-                    <th scope="col">Action</th>
-                    </c:if>
-                </tr>
+                    <tr>
+                        <th scope="col">Advert Name</th>
+                        <c:if test = "${isLoggedUsersProfile}">
+                        <th scope="col">Action</th>
+                        </c:if>
+                    </tr>
                 </thead>
 
-            <h3>User's adverts:</h3>
-            <c:forEach items="${adverts}" var="advert">
-                    <spring:url value="/adverts/{advertId}" var = "advertUrl">
-                        <spring:param name="advertId" value="${advert.id}"/>
-                    </spring:url>
-                <tr>
-                    <td><a href="${fn:escapeXml(advertUrl)}"><c:out value="${advert.name}"/></a></td>
-                    <%--Logged in user can edit or delete his adverts--%>
-                    <c:if test = "${isLoggedUsersProfile}">
-                        <spring:url value="/adverts/{advertId}/edit" var = "editAdvert">
-                             <spring:param name="advertId" value="${advert.id}"/>
+                <c:forEach items="${adverts}" var="advert">
+                        <spring:url value="/adverts/{advertId}" var = "advertUrl">
+                            <spring:param name="advertId" value="${advert.id}"/>
                         </spring:url>
-                        <td> <a class="btn btn-info" href="${fn:escapeXml(editAdvert)}">Edit</a></td>
+                    <tr>
+                        <td><a href="${fn:escapeXml(advertUrl)}"><c:out value="${advert.name}"/></a></td>
+                        <%--Logged in user can edit or delete his adverts--%>
+                        <c:if test = "${isLoggedUsersProfile}">
+                            <spring:url value="/adverts/{advertId}/edit" var = "editAdvert">
+                                 <spring:param name="advertId" value="${advert.id}"/>
+                            </spring:url>
+                            <td> <a class="btn btn-info" href="${fn:escapeXml(editAdvert)}">Edit</a></td>
 
-                        <c:url var="deleteUrl" value="/adverts/${advert.id}/delete"/>
-                        <td><form:form action="${deleteUrl}" method="POST">
-                            <input id="advertId" name="advertId" type="hidden" value="<c:out value="${advert.id}"/>"/>
-                            <input type="submit" class="btn btn-danger" value="Delete" onClick="return confirm('Are you sure?')"/>
-                        </form:form></td>
-                    </c:if>
-                </tr>
-                <br>
-            </c:forEach>
+                            <c:url var="deleteUrl" value="/adverts/${advert.id}/delete"/>
+                            <td><form:form action="${deleteUrl}" method="POST">
+                                <input id="advertId" name="advertId" type="hidden" value="<c:out value="${advert.id}"/>"/>
+                                <input type="submit" class="btn btn-danger" value="Delete" onClick="return confirm('Are you sure?')"/>
+                            </form:form></td>
+                        </c:if>
+                    </tr>
+                </c:forEach>
             </table>
         </div>
-            <br>
             <h3>User's ratings:</h3>
             <c:forEach items="${ratings}" var="rating">
                 <p>
