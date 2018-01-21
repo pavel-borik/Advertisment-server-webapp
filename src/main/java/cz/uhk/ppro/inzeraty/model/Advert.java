@@ -1,22 +1,26 @@
 package cz.uhk.ppro.inzeraty.model;
 
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
 @Entity
+@Indexed
 @Table(name = "Adverts", schema = "inzeraty")
 public class Advert {
     @Id
     @GeneratedValue
     private int id;
+    @Field(index = Index.YES, analyze = Analyze.YES,store = Store.NO)
     @NotEmpty
     private String name;
+
     private byte[] image;
     @NotEmpty
     private String description;

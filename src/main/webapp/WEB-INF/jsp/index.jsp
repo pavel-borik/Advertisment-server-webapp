@@ -18,6 +18,10 @@
 <body>
     <div class="bodyContainer">
         <jsp:include page="menu.jsp"/>
+        <form action="search" method="get">
+            <input type="text" name="q" >
+            <button type="submit">Search advert</button>
+        </form>
         <div class="row">
             <div class="col-md-3">
                     <div class="box">
