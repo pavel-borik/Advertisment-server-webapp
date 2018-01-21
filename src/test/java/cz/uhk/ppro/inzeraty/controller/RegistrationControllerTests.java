@@ -4,15 +4,19 @@ import cz.uhk.ppro.inzeraty.InzeratyApplication;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -20,12 +24,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={InzeratyApplication.class})
+//@ContextConfiguration(classes={InzeratyApplication.class})
 //@WebMvcTest(value = RegistrationController.class, secure = false)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class RegistrationControllerTests {
 
+    @Autowired
     private MockMvc mockMvc;
 
     @Autowired
@@ -38,6 +43,11 @@ public class RegistrationControllerTests {
         viewResolver.setSuffix(".jsp");
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(registrationController).setViewResolvers(viewResolver).build();
+    }
+
+    @Test
+    public void contextLoads() throws Exception {
+        assertThat(registrationController).isNotNull();
     }
 
     @Test
