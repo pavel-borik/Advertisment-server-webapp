@@ -43,7 +43,7 @@
                         <c:param name="p" value="~"/>
                     </c:url>
                     <c:if test= "${fn:length(pagedListHolder.pageList) eq 0}">
-                        <p>There are no advertisments for this category.</p>
+                        <p>No advertisment found.</p>
                     </c:if>
                     <c:forEach items="${pagedListHolder.pageList}" var="ad">
 

@@ -18,7 +18,7 @@
 <body>
     <div class="bodyContainer">
         <jsp:include page="menu.jsp"/>
-        <form action="search" method="get">
+        <form action="/search" method="get">
             <input type="text" name="q" >
             <button type="submit">Search advert</button>
         </form>
