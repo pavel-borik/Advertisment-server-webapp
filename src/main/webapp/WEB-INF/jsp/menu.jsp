@@ -18,7 +18,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <ul class="navbar-nav">
+    <ul class="navbar-nav mr-auto">
         <li class="nav-item">
         <a class="nav-link" href='<spring:url value="/" htmlEscape="true"/>'>Home</a>
         </li>
@@ -41,17 +41,12 @@
                 <a class="nav-link" href="<spring:url value="/registration" htmlEscape="true"/>">Register</a>
             </li>
         </sec:authorize>
-
         <li class="nav-item">
             <a class="nav-link" href='<spring:url value="/adverts/new" htmlEscape="true"/>'>Insert advertisement</a>
         </li>
-        <%-- <li class="nav-item dropdown">
-             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-             <div class="dropdown-menu" aria-labelledby="dropdown08">
-                 <a class="dropdown-item" href="#">Action</a>
-                 <a class="dropdown-item" href="#">Another action</a>
-                 <a class="dropdown-item" href="#">Something else here</a>
-             </div>
-         </li>--%>
     </ul>
+    <form class="form-inline my-2 my-lg-0" action="/search" method="get">
+        <input class="form-control mr-sm-2" type="text" name="q" >
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search advert</button>
+    </form>
 </nav>

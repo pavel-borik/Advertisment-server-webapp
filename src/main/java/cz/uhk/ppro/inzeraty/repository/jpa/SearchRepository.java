@@ -36,10 +36,6 @@ public class SearchRepository {
         QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
                 .buildQueryBuilder().forEntity(Advert.class).get();
 
-
-//        Query query = queryBuilder.keyword().wildcard().onField("name")
-//                .matching(text + "*").createQuery();
-
         Query query = queryBuilder
                 .phrase()
                 .onField("name")
