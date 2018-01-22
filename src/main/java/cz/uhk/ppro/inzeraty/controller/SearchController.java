@@ -2,7 +2,7 @@ package cz.uhk.ppro.inzeraty.controller;
 
 import cz.uhk.ppro.inzeraty.model.Category;
 import cz.uhk.ppro.inzeraty.model.User;
-import cz.uhk.ppro.inzeraty.repository.jpa.SearchRepository;
+import cz.uhk.ppro.inzeraty.repository.SearchRepository;
 import cz.uhk.ppro.inzeraty.service.AdvertService;
 import cz.uhk.ppro.inzeraty.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

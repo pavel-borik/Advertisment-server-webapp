@@ -1,6 +1,7 @@
 package cz.uhk.ppro.inzeraty.repository.jpa;
 
 import cz.uhk.ppro.inzeraty.model.Advert;
+import cz.uhk.ppro.inzeraty.repository.SearchRepository;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.ParseException;
@@ -25,7 +26,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class SearchRepository {
+public class SearchRepositoryImpl implements SearchRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
