@@ -22,13 +22,13 @@
             <h1>Advertisment detail</h1>
             <p>
                 <h2>${advert.name}</h2>
-                <p>Description: ${advert.description}</p>
-                <p>Location: ${advert.location}</p>
-                <p>Price: ${advert.price}</p>
-            <p>Pictures:<br>
+                <p><b>Description:</b> ${advert.description}</p>
+                <p><b>Location:</b> ${advert.location}</p>
+                <p><b>Price:</b> ${advert.price}</p>
+            <p><b>Pictures:</b><br>
                 <span class="img-responsive"> <img src="/advertImage/imageDisplay?advertId=${advert.id}" alt=""/></span>
             </p>
-                <p>Posted by:
+                <p><b>Posted by</b>:
                     <spring:url value="/users/{userId}" var = "userUrl">
                         <spring:param name="userId" value="${advert.user.id}"/>
                     </spring:url>

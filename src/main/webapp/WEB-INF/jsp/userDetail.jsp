@@ -19,14 +19,34 @@
         <div class="container">
             <jsp:include page="menu.jsp"/>
             <h1>User detail</h1>
-            <p>
-                Username: ${user.username}<br>
-                First name: ${user.firstname}<br>
-                Last name: ${user.surname}<br>
-                E-mail: ${user.email}<br>
-                Phone: ${user.phone}<br>
-                Registered: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${user.creationTime}" /><br>
-            </p>
+            <table class="table table-sm">
+                <tbody>
+                <tr>
+                    <th scope="col">Username:</th>
+                    <td>${user.username}</td>
+                </tr>
+                <tr>
+                    <th scope="col">First name:</th>
+                    <td>${user.firstname}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Surname:</th>
+                    <td>${user.surname}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Email:</th>
+                    <td>${user.email}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Phone:</th>
+                    <td>${user.phone}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Registration:</th>
+                    <td><fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${user.creationTime}"/></td>
+                </tr>
+                </tbody>
+            </table>
             <h3>User's adverts:</h3>
 
             <div class="table-responsive">
