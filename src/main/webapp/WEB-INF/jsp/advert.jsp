@@ -9,14 +9,15 @@
 
 <html>
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/css/style2.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
     <title>Advertisment server - Add/Edit advert</title>
 
 </head>
 <body>
-<div class="bodyContainer">
     <div class="container">
         <jsp:include page="menu.jsp"/>
 
@@ -24,13 +25,13 @@
 
             <form:form method="POST" modelAttribute="advert" enctype="multipart/form-data">
             <fieldset>
-                <div class="form-group">
-                    <label><b>Name</b><span class="text-danger">*</span></label>
-                    <form:input path="name" class="form-control" type="text" placeholder="Enter Name" required="true" />
+                <div class="input-field">
+                    <label><b>Name</b></label>
+                    <form:input path="name" class="validate" type="text" placeholder="Enter Name" required="true" />
                 </div>
 
-                <div class="form-group">
-                    <label><b>Category</b><span class="text-danger">*</span></label><br>
+                <div class="input-field">
+                    <label><b>Category</b></label><br>
                     <form:select name="category" path ="category">
                         <c:forEach items="${categories}" var="categ">
                             <form:option value="${categ.name}" />
@@ -38,34 +39,51 @@
                     </form:select>
                 </div>
 
-                <div class="form-group">
-                    <label><b>Location</b><span class="text-danger">*</span></label>
-                    <form:input path="location" class="form-control" type="text" placeholder="Enter Location" required="true" />
+                <div class="input-field">
+                    <label><b>Location</b></label>
+                    <form:input path="location" class="" type="text" placeholder="Enter location" required="true" />
                 </div>
 
-                <div class="form-group">
-                    <label><b>Description</b><span class="text-danger">*</span></label>
-                    <form:textarea path="description" class="form-control" rows="10" placeholder="Description" required ="true" />
+                <div class="input-field">
+                    <label><b>Description</b></label>
+                    <form:textarea path="description" class="materialize-textarea" placeholder="Enter description" required ="true" />
                 </div>
 
-                <div class="form-group">
-                    <label><b>Price</b><span class="text-danger">*</span></label>
-                    <form:input path="price" class="form-control" type="textarea" placeholder="Price" required ="true"/>
+                <div class="input-field">
+                    <label><b>Price</b></label>
+                    <form:input path="price" class="materialize-textarea" placeholder="Price" required ="true"/>
                 </div>
 
-                <div class="form-group">
+                <div class="file-field input-field">
                     <label><b>Image</b></label>
-                    <form:input path="mpf" class="form control file" type="file" />
                 </div>
-                <p><span class="text-danger">* = required field</span></p>
+                <div class="file-field input-field">
+                    <div class="btn red lighten-3">
+                        <span>File</span>
+                        <form:input path="mpf" type="file" />
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
 
-                <div class="clearfix">
-                    <a class="btn btn-default" role ="button" href='<spring:url value="/" htmlEscape="true"/>'>Cancel</a>
-                    <button type="submit" class="btn btn-primary" role="button">Submit</button>
-                </div>
+                <a class="btn red" role ="button" href='<spring:url value="/" htmlEscape="true"/>'>Cancel</a>
+                <button type="submit" class="btn green" role="button">Submit</button>
+
             </fieldset>
         </form:form>
+
+
     </div>
-</div>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>
 </body>
 </html>
