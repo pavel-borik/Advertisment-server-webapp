@@ -26,7 +26,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class SearchRepositoryImpl implements SearchRepository {
+public class JpaSearchRepositoryImpl implements SearchRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -43,11 +43,10 @@ public class SearchRepositoryImpl implements SearchRepository {
                 .sentence(text)
                 .createQuery();
 
-       FullTextQuery jpaQuery = fullTextEntityManager.createFullTextQuery(query, Advert.class);
+        FullTextQuery jpaQuery = fullTextEntityManager.createFullTextQuery(query, Advert.class);
 
         @SuppressWarnings("unchecked")
-                List results = jpaQuery.getResultList();
-        System.out.println(results);
+        List results = jpaQuery.getResultList();
 
         return results;
 
