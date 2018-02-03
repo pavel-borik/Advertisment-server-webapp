@@ -2,7 +2,7 @@ package cz.uhk.ppro.inzeraty.service;
 
 import cz.uhk.ppro.inzeraty.InzeratyApplication;
 import cz.uhk.ppro.inzeraty.model.User;
-import cz.uhk.ppro.inzeraty.model.UserDTO;
+import cz.uhk.ppro.inzeraty.dto.UserDto;
 import cz.uhk.ppro.inzeraty.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +35,7 @@ public class UserServiceJpaTests {
         Collection<User> users = this.userService.findUsersByLastName("Smith");
         int found = users.size();
 
-        UserDTO userDto = new UserDTO();
+        UserDto userDto = new UserDto();
 
         userDto.setUsername(UUID.randomUUID().toString());
         userDto.setFirstname("John");

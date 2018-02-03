@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
@@ -20,19 +21,14 @@ public class Advert {
     @Field(index = Index.YES, analyze = Analyze.YES,store = Store.NO)
     @NotEmpty
     private String name;
-
-    private byte[] image;
     @NotEmpty
     private String description;
-
+    @NotNull
     private Timestamp timestamp;
     @NotEmpty
     private String location;
     @NotEmpty
     private String price;
-
-    @Transient
-    private MultipartFile mpf;
 
     @ManyToOne
     private Category category;
@@ -43,6 +39,9 @@ public class Advert {
     @OneToMany(mappedBy = "advert", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 
+    @OneToMany(mappedBy = "advert", cascade = CascadeType.REMOVE)
+    private List<AdvertImage> images;
+
 
     public int getId() {
         return id;
@@ -52,7 +51,6 @@ public class Advert {
         this.id = id;
     }
 
-
     public String getName() {
         return name;
     }
@@ -60,16 +58,6 @@ public class Advert {
     public void setName(String name) {
         this.name = name;
     }
-
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
 
     public String getDescription() {
         return description;
@@ -79,7 +67,6 @@ public class Advert {
         this.description = description;
     }
 
-
     public Timestamp getTimestamp() {
         return timestamp;
     }
@@ -87,7 +74,6 @@ public class Advert {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
-
 
     public String getLocation() {
         return location;
@@ -129,12 +115,12 @@ public class Advert {
         this.price = price;
     }
 
-    public MultipartFile getMpf() {
-        return mpf;
+    public List<AdvertImage> getImages() {
+        return images;
     }
 
-    public void setMpf(MultipartFile mpf) {
-        this.mpf = mpf;
+    public void setImages(List<AdvertImage> images) {
+        this.images = images;
     }
 
     @Override
@@ -146,21 +132,20 @@ public class Advert {
 
         if (id != advert.id) return false;
         if (name != null ? !name.equals(advert.name) : advert.name != null) return false;
-        if (!Arrays.equals(image, advert.image)) return false;
         if (description != null ? !description.equals(advert.description) : advert.description != null) return false;
         if (timestamp != null ? !timestamp.equals(advert.timestamp) : advert.timestamp != null) return false;
         if (location != null ? !location.equals(advert.location) : advert.location != null) return false;
         if (price != null ? !price.equals(advert.price) : advert.price != null) return false;
         if (category != null ? !category.equals(advert.category) : advert.category != null) return false;
         if (user != null ? !user.equals(advert.user) : advert.user != null) return false;
-        return comments != null ? comments.equals(advert.comments) : advert.comments == null;
+        if (comments != null ? !comments.equals(advert.comments) : advert.comments != null) return false;
+        return images != null ? images.equals(advert.images) : advert.images == null;
     }
 
     @Override
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(image);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
@@ -168,6 +153,7 @@ public class Advert {
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (comments != null ? comments.hashCode() : 0);
+        result = 31 * result + (images != null ? images.hashCode() : 0);
         return result;
     }
 }

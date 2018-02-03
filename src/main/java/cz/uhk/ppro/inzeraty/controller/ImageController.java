@@ -32,7 +32,7 @@ public class ImageController {
 
         Optional<Advert> a = advertService.findById(advertId);
         response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-        if(a.isPresent()) response.getOutputStream().write(a.get().getImage());
+        //if(a.isPresent()) response.getOutputStream().write(a.get().getImage());
 
         response.getOutputStream().close();
     }

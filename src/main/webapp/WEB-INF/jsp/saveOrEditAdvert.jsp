@@ -23,7 +23,7 @@
 
             <p><h1>Add/Edit advertisment</h1></p>
 
-            <form:form method="POST" modelAttribute="advert" enctype="multipart/form-data">
+            <form:form method="POST" modelAttribute="advertDto" enctype="multipart/form-data">
             <fieldset>
                 <div class="input-field">
                     <label><b>Name</b></label>
@@ -59,8 +59,8 @@
                 </div>
                 <div class="file-field input-field">
                     <div class="btn red lighten-3">
-                        <span>File</span>
-                        <form:input path="mpf" type="file" />
+                        <span>Choose images</span>
+                        <form:input path="mpf" type="file" multiple="true" />
                     </div>
                     <div class="file-path-wrapper">
                         <input class="file-path validate" type="text">

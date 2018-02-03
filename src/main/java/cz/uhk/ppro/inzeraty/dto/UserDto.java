@@ -1,8 +1,8 @@
-package cz.uhk.ppro.inzeraty.model;
+package cz.uhk.ppro.inzeraty.dto;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class UserDTO {
+public class UserDto {
 
     @NotEmpty
     private String username;
@@ -19,7 +19,7 @@ public class UserDTO {
 
     private String phoneNumber;
 
-    public UserDTO() {
+    public UserDto() {
     }
 
     public String getUsername() {
@@ -81,9 +81,9 @@ public class UserDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserDTO)) return false;
+        if (!(o instanceof UserDto)) return false;
 
-        UserDTO that = (UserDTO) o;
+        UserDto that = (UserDto) o;
 
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;

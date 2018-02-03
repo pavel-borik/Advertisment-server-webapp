@@ -1,5 +1,6 @@
 package cz.uhk.ppro.inzeraty.controller;
 
+import cz.uhk.ppro.inzeraty.dto.AdvertDto;
 import cz.uhk.ppro.inzeraty.model.Advert;
 import cz.uhk.ppro.inzeraty.model.Category;
 import cz.uhk.ppro.inzeraty.model.Comment;
@@ -25,6 +26,7 @@ import java.util.Optional;
 public class AdvertController {
     private final AdvertService advertService;
     private final UserService userService;
+    private static final String ADVERTFORMVIEW = "saveOrEditAdvert";
 
     @Autowired
     public AdvertController(AdvertService advertService, UserService userService) {
@@ -41,8 +43,12 @@ public class AdvertController {
         if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         Optional<Advert> advert = advertService.findById(advertId);
-        mav.addObject("comments", advert.get().getComments());
-        if(advert.isPresent()) mav.addObject("advert", advert.get());
+
+        if(advert.isPresent()) {
+            mav.addObject("advert", advert.get());
+            mav.addObject("images", advert.get().getImages());
+            mav.addObject("comments", advert.get().getComments());
+        }
 
         return mav;
     }
@@ -56,25 +62,28 @@ public class AdvertController {
     }
 
     @RequestMapping(value = "/adverts/new", method = RequestMethod.GET)
-    public ModelAndView showNewAdvertForm(@ModelAttribute("advert") Advert advert, ModelMap modelMap) {
+    public ModelAndView showNewAdvertForm(AdvertDto advertDto, BindingResult result) {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("advert");
+        mav.setViewName(ADVERTFORMVIEW);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
-        if(loggedUser.isPresent()) modelMap.addAttribute("loggedUserId", loggedUser.get().getId());
+        if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         List<Category> categoryList;
         categoryList = advertService.findAllCategories();
-        modelMap.put("categories", categoryList);
+        mav.addObject("categories", categoryList);
         return mav;
     }
 
     @RequestMapping(value = "/adverts/new", method = RequestMethod.POST)
-    public String createNewAdvert(@ModelAttribute("advert") @Valid Advert advert) throws IOException {
+    public String createNewAdvert(@Valid AdvertDto advertDto, BindingResult result) throws IOException {
+        if(result.hasErrors()) {
+            return "redirect:/adverts/new?error=true";
+        }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
-        if(loggedUser.isPresent()) advertService.saveAdvert(advert, loggedUser.get());
+        if(loggedUser.isPresent()) advertService.saveAdvert(advertDto, loggedUser.get());
         return "redirect:advertSuccess";
     }
 
@@ -91,11 +100,11 @@ public class AdvertController {
         categoryList = advertService.findAllCategories();
         model.addAttribute("categories", categoryList);
 
-        return "advert";
+        return ADVERTFORMVIEW;
     }
 
     @RequestMapping(value = "/adverts/{advertId}/edit", method = RequestMethod.POST)
-    public String processEditAdvert(@Valid Advert advert, BindingResult result, @PathVariable("advertId") int advertId) {
+    public String processEditAdvert(@Valid AdvertDto advertDto, BindingResult result, @PathVariable("advertId") int advertId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> author = userService.findByUsername(authentication.getName());
 
@@ -103,8 +112,8 @@ public class AdvertController {
             return "redirect:/adverts/{advertId}/edit?error=true";
         }
 
-        advert.setId(advertId);
-        if(author.isPresent()) this.advertService.saveAdvert(advert, author.get());
+        advertDto.setId(advertId);
+        if(author.isPresent()) this.advertService.saveAdvert(advertDto, author.get());
         return "redirect:/adverts/{advertId}";
     }
 

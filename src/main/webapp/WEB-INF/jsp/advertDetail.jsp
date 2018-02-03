@@ -10,26 +10,31 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/style2.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/style2.css"/>
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"  media="screen,projection"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <link href="css/style.css" rel="stylesheet">
     <title>Advertisment server - Advertisment detail</title>
 </head>
 <body>
     <div class="bodyContainer">
         <div class="container">
             <jsp:include page="menu.jsp"/>
-
             <h1>Advertisment detail</h1>
+            <img src="/resources/images/downscaled/"  alt=""/>
             <p>
                 <h2>${advert.name}</h2>
                 <p><b>Description:</b> ${advert.description}</p>
                 <p><b>Location:</b> ${advert.location}</p>
                 <p><b>Price:</b> ${advert.price}</p>
-            <p><b>Pictures:</b><br>
-                <span class="img-responsive"> <img src="/advertImage/imageDisplay?advertId=${advert.id}" alt=""/></span>
+                <b>Pictures:</b><br>
+
+                <c:forEach items="${advert.images}" var="image">
+                    <p>${image.uuid}</p>
+                    <img src="/resources/images/downscaled/${image.uuid}.jpg" alt=""/>
+                </c:forEach>
+
+
             </p>
                 <p><b>Posted by</b>:
                     <spring:url value="/users/{userId}" var = "userUrl">
