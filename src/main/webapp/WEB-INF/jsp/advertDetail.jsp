@@ -21,7 +21,6 @@
         <div class="container">
             <jsp:include page="menu.jsp"/>
             <h1>Advertisment detail</h1>
-            <img src="/resources/images/downscaled/"  alt=""/>
             <p>
                 <h2>${advert.name}</h2>
                 <p><b>Description:</b> ${advert.description}</p>
@@ -30,7 +29,6 @@
                 <b>Pictures:</b><br>
 
                 <c:forEach items="${advert.images}" var="image">
-                    <p>${image.uuid}</p>
                     <img src="/resources/images/downscaled/${image.uuid}.jpg" alt=""/>
                 </c:forEach>
 

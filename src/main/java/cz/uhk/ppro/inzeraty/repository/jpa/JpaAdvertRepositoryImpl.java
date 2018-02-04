@@ -37,7 +37,6 @@ public class JpaAdvertRepositoryImpl implements AdvertRepository{
     }
 
     @Override
-    @Transactional
     public void save(Advert advert) {
         Optional<Advert> a = this.findById(advert.getId());
         if(a.isPresent()) {

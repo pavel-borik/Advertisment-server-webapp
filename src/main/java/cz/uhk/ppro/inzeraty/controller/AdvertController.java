@@ -88,9 +88,10 @@ public class AdvertController {
     }
 
     @RequestMapping(value = "/adverts/{advertId}/edit", method = RequestMethod.GET)
-    public String showEditAdvertForm(@PathVariable("advertId") int advertId, Model model) {
+    public String showEditAdvertForm(@PathVariable("advertId") int advertId, @ModelAttribute("advertDto") Advert advert, Model model) {
         Optional<Advert> a = this.advertService.findById(advertId);
-        if(a.isPresent()) model.addAttribute("advert", a);
+        //TODO map a to a DTO object
+        if(a.isPresent()) model.addAttribute("advertDto", a);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());

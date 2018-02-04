@@ -54,7 +54,7 @@
                     <c:forEach items="${pagedListHolder.pageList}" var="ad">
                         <div class="card large">
                             <div class="card-image">
-                                <img src="/advertImage/imageDisplay?advertId=${ad.id}" alt=""/>
+                                <img src="/resources/images/original/${ad.images[0].uuid}.jpg" alt=""/>
                             </div>
                             <div class="card-stacked">
                                 <div class="card-content">

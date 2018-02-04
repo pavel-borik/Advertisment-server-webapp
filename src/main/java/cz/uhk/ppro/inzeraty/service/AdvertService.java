@@ -5,6 +5,7 @@ import cz.uhk.ppro.inzeraty.model.*;
 import cz.uhk.ppro.inzeraty.repository.AdvertRepository;
 import cz.uhk.ppro.inzeraty.repository.CategoryRepository;
 import cz.uhk.ppro.inzeraty.repository.CommentRepository;
+import cz.uhk.ppro.inzeraty.repository.ImageRepository;
 import cz.uhk.ppro.inzeraty.util.ImageDownscaler;
 import cz.uhk.ppro.inzeraty.util.ImagePersistor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,19 +26,29 @@ public class AdvertService {
     private CategoryRepository categoryRepo;
     private AdvertRepository adRepo;
     private CommentRepository commentRepo;
+    private ImageRepository imageRepo;
 
     @Autowired
-    public AdvertService(CategoryRepository categoryRepo, AdvertRepository adRepo, CommentRepository commentRepo) {
+    public AdvertService(CategoryRepository categoryRepo, AdvertRepository adRepo, CommentRepository commentRepo, ImageRepository imageRepo) {
         this.categoryRepo = categoryRepo;
         this.adRepo = adRepo;
         this.commentRepo = commentRepo;
+        this.imageRepo = imageRepo;
     }
 
     @Transactional
     public void saveAdvert(AdvertDto advertDto, User user) {
         Advert advert = new Advert();
-        List<AdvertImage> advertImages = new ArrayList<>();
         List<MultipartFile> files = advertDto.getMpf();
+
+        advert.setName(advertDto.getName());
+        advert.setCategory(advertDto.getCategory());
+        advert.setDescription(advertDto.getDescription());
+        advert.setLocation(advertDto.getLocation());
+        advert.setPrice(advertDto.getPrice());
+        advert.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        advert.setUser(user);
+        adRepo.save(advert);
 
         for(MultipartFile f:files) {
             String imgUUID = UUID.randomUUID().toString();
@@ -45,18 +56,9 @@ public class AdvertService {
             AdvertImage a = new AdvertImage();
             a.setUuid(imgUUID);
             a.setAdvert(advert);
-            //TODO save image
+            imageRepo.save(a);
         }
 
-        advert.setName(advertDto.getName());
-        advert.setCategory(advertDto.getCategory());
-        advert.setDescription(advertDto.getDescription());
-        advert.setLocation(advertDto.getLocation());
-        advert.setPrice(advertDto.getPrice());
-        advert.setImages(advertImages);
-        advert.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        advert.setUser(user);
-        adRepo.save(advert);
     }
 
     @Transactional

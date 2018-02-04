@@ -3,7 +3,6 @@ package cz.uhk.ppro.inzeraty.util;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.util.UUID;
 
 public class ImagePersistor {
 
@@ -16,11 +15,11 @@ public class ImagePersistor {
                 String uuid = imageUuid;
                 File file = new File("/home/pb/Documents/Projects/inzeraty/src/main/webapp/resources/images/downscaled/"+uuid+".jpg");
                 OutputStream out = new FileOutputStream(file);
-                out.write(imgOriginal);
+                out.write(imgDownscaled);
                 out.flush();
                 file = new File("/home/pb/Documents/Projects/inzeraty/src/main/webapp/resources/images/original/"+uuid+".jpg");
                 out= new FileOutputStream(file);
-                out.write(imgDownscaled);
+                out.write(imgOriginal);
                 out.flush();
                 out.close();
             }
