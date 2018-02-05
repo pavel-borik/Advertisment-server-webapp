@@ -52,33 +52,33 @@
                         <p>No advertisments found.</p>
                     </c:if>
                     <c:forEach items="${pagedListHolder.pageList}" var="ad">
-                        <div class="card large">
+                        <div class="card horizontal">
                             <div class="card-image">
                                 <img src="/resources/images/original/${ad.images[0].uuid}.jpg" alt=""/>
                             </div>
                             <div class="card-stacked">
                                 <div class="card-content">
-                                        <c:out value="${ad.category.name}"/>
                                         <p>
-                                            <span class="ad-name">${ad.name}</span>
+                                            <b><span class="ad-name">${ad.name}</span></b>
                                             <br/>
                                             <%--If the description is longer than a certain value, abbreviation is applied--%>
                                             <c:set var="desc" value="${ad.description}" />
 
                                             <c:choose>
                                                 <c:when test="${fn:length(desc) > 50}">
-                                                    <b>Description:</b> <c:out value="${fn:substring(desc,0,50)}"/>...
+                                                    Description:<c:out value="${fn:substring(desc,0,50)}"/>...
                                                 </c:when>
 
                                                 <c:otherwise>
-                                                    <b>Description:</b> <c:out value="${ad.description}"/>
+                                                    Description: <c:out value="${ad.description}"/>
                                                 </c:otherwise>
                                             </c:choose>
                                             <br/>
                                             Location: <c:out value="${ad.location}"/>
                                             <br/>
                                             Price: <c:out value="${ad.price}"/>
-                                            <span class="right">Last edited: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${ad.timestamp}" /></span>
+                                            <br/>
+                                            <span class="">Last edited: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${ad.timestamp}" /></span>
                                         </p>
                                 </div>
                                 <div class="card-action">
