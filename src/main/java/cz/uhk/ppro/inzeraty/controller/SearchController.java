@@ -60,7 +60,7 @@ public class SearchController {
             }
         }
 
-        return "search";
+        return "index";
 
     }
 }

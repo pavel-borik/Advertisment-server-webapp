@@ -10,14 +10,15 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="/css/style2.css"/>
+    <link type="text/css" rel="stylesheet" href="/resources/css/style2.css"/>
+    <link type="text/css" rel="stylesheet" href="/resources/lightbox/css/lightbox.css"/>
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"  media="screen,projection"/>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <title>Advertisment server - Advertisment detail</title>
 </head>
 <body>
-    <div class="bodyContainer">
         <div class="container">
             <jsp:include page="menu.jsp"/>
             <h1>Advertisment detail</h1>
@@ -27,12 +28,10 @@
                 <p><b>Location:</b> ${advert.location}</p>
                 <p><b>Price:</b> ${advert.price}</p>
                 <b>Pictures:</b><br>
-
                 <c:forEach items="${advert.images}" var="image">
-                    <img src="/resources/images/downscaled/${image.uuid}.jpg" alt=""/>
+                    <a href="/resources/images/original/${image.uuid}.jpg" data-lightbox="advertisment-images"><img src="/resources/images/downscaled/${image.uuid}.jpg" width="200" height="150" alt=""/>
+                    </a>
                 </c:forEach>
-
-
             </p>
                 <p><b>Posted by</b>:
                     <spring:url value="/users/{userId}" var = "userUrl">
@@ -58,16 +57,20 @@
         <p>
         <form:form method="POST" modelAttribute="addedComment">
             <fieldset>
-                <div class="form-group">
-                    <form:textarea path="commentText" class="form-control" rows="5" placeholder="Enter comment" required ="true" />
+                <div class="input-field">
+                    <form:textarea path="commentText" class="materialize-textarea" placeholder="Enter a comment" required ="true" />
                 </div>
                 <div class="clearfix">
-                    <button type="submit" class="">Add comment</button>
+                    <button type="submit" class="btn red">Add comment</button>
                 </div>
             </fieldset>
         </form:form>
         </p>
         </div>
-    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <script src="/resources/lightbox/js/lightbox.js"></script>
+
 </body>
 </html>

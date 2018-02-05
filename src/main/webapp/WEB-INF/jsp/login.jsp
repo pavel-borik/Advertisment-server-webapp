@@ -13,7 +13,7 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="/css/style2.css"/>
+    <link type="text/css" rel="stylesheet" href="/resources/css/style2.css"/>
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"  media="screen,projection"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -21,7 +21,7 @@
     <title>Advertisment server - Login</title>
 </head>
 <body>
-    <div class="bodyContainer">
+    <div class="container">
         <jsp:include page="menu.jsp"/>
         <h1>Log in:</h1>
 
@@ -37,26 +37,11 @@
                     </div>
 
                     <div class="clearfix">
-                        <button type="submit" class="signupbtn">Log in</button>
+                        <button type="submit" class="btn red">Log in</button>
                     </div>
             </fieldset>
         </form:form>
     </div>
 
-<script>
-    var password = document.getElementById("psw")
-        , confirm_password = document.getElementById("psw-repeat");
-
-    function validatePassword() {
-        if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
-        } else {
-            confirm_password.setCustomValidity('');
-        }
-    }
-
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
-</script>
 </body>
 </html>

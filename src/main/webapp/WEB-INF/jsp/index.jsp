@@ -10,7 +10,7 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="/css/style2.css"/>
+    <link type="text/css" rel="stylesheet" href="/resources/css/style2.css"/>
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"  media="screen,projection"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Advertisment server</title>
@@ -35,7 +35,7 @@
                 <form class="searchad-form" action="/search" method="get">
                     <div class="row">
                         <div class="input-field">
-                            <input type="text" name="q" required>
+                            <input type="text" name="q" placeholder="Search for an advertisment" required>
                         </div>
                         <button class="waves-effect waves-light btn red" type="submit">Search</button>
                     </div>
@@ -49,7 +49,7 @@
                         <c:param name="p" value="~"/>
                     </c:url>
                     <c:if test= "${fn:length(pagedListHolder.pageList) eq 0}">
-                        <p>There are no advertisments for this category.</p>
+                        <p>No advertisments found.</p>
                     </c:if>
                     <c:forEach items="${pagedListHolder.pageList}" var="ad">
                         <div class="card large">

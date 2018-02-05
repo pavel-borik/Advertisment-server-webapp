@@ -10,15 +10,13 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="/css/style2.css"/>
+    <link type="text/css" rel="stylesheet" href="/resources/css/style2.css"/>
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"  media="screen,projection"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <link href="css/style.css" rel="stylesheet">
     <title>Advertisment server - User detail</title>
 </head>
 <body>
-    <div class="bodyContainer">
         <div class="container">
             <jsp:include page="menu.jsp"/>
             <h1>User detail</h1>
@@ -86,7 +84,7 @@
                     </tr>
                 </c:forEach>
             </table>
-        </div>
+            </div>
             <h3>User's ratings:</h3>
             <c:forEach items="${ratings}" var="rating">
                 <p>
@@ -102,16 +100,15 @@
             <p>
             <form:form method="POST" modelAttribute="addedRating">
                 <fieldset>
-                        <div class="form-group">
-                            <form:textarea path="ratingText" class="form-control" cols="50" rows="10" placeholder="Enter rating" required ="true" />
+                        <div class="input-field">
+                            <form:textarea path="ratingText" class="materialize-textarea" cols="50" rows="10" placeholder="Enter rating" required ="true" />
                         </div>
                         <div class="clearfix">
-                            <button type="submit" class="">Rate user</button>
+                            <button type="submit" class="btn red">Rate user</button>
                         </div>
                 </fieldset>
             </form:form>
             </p>
         </div>
-    </div>
 </body>
 </html>

@@ -5,8 +5,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
-
 <nav>
     <div class="nav-wrapper">
         <ul class="left">
@@ -37,7 +35,7 @@
             </li>
         </ul>
 
-        <div class="right">
+        <div id="welcome-msg-user" class="right">
             <sec:authorize access="isAuthenticated()">
                     <spring:url value="/users/{userId}" var = "userUrl">
                         <spring:param name="userId" value="${loggedUserId}"/>

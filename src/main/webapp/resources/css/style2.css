@@ -6,5 +6,9 @@ body {
 }
 
 .searchad-form {
-    margin: 0px 7px;
+    margin: 0px 15px;
+}
+
+#welcome-msg-user {
+    margin-right: 20px;
 }
