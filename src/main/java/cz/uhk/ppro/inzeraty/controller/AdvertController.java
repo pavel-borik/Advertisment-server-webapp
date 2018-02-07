@@ -5,6 +5,7 @@ import cz.uhk.ppro.inzeraty.model.Advert;
 import cz.uhk.ppro.inzeraty.model.Category;
 import cz.uhk.ppro.inzeraty.model.Comment;
 import cz.uhk.ppro.inzeraty.model.User;
+import cz.uhk.ppro.inzeraty.security.AuthenticationProvider;
 import cz.uhk.ppro.inzeraty.service.AdvertService;
 import cz.uhk.ppro.inzeraty.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,20 +26,22 @@ import java.util.Optional;
 public class AdvertController {
     private final AdvertService advertService;
     private final UserService userService;
+    private final AuthenticationProvider authentication;
+
     private static final String ADVERTFORMVIEW = "saveOrEditAdvert";
 
     @Autowired
-    public AdvertController(AdvertService advertService, UserService userService) {
+    public AdvertController(AdvertService advertService, UserService userService, AuthenticationProvider authentication) {
         this.advertService = advertService;
         this.userService = userService;
+        this.authentication = authentication;
     }
 
     @RequestMapping(value ="/adverts/{advertId}", method = RequestMethod.GET)
     public ModelAndView showAdvert(@PathVariable("advertId") int advertId, @ModelAttribute("addedComment") Comment comment) {
         ModelAndView mav = new ModelAndView("advertDetail");
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<User> loggedUser = userService.findByUsername(authentication.getName());
+        Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         Optional<Advert> advert = advertService.findById(advertId);
@@ -55,8 +57,7 @@ public class AdvertController {
 
     @RequestMapping(value ="/adverts/{advertId}", method = RequestMethod.POST)
     public String addRating(@PathVariable("advertId") int advertId, @ModelAttribute("addedComment") @Valid Comment comment) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<User> author = userService.findByUsername(authentication.getName());
+        Optional<User> author = userService.findByUsername(authentication.getAuthentication().getName());
         if(author.isPresent()) advertService.saveComment(comment, author.get(), advertId);
         return "redirect:/adverts/{advertId}";
     }
@@ -66,8 +67,7 @@ public class AdvertController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName(ADVERTFORMVIEW);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<User> loggedUser = userService.findByUsername(authentication.getName());
+        Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         List<Category> categoryList;
@@ -81,10 +81,9 @@ public class AdvertController {
         if(result.hasErrors()) {
             return "redirect:/adverts/new?error=true";
         }
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<User> loggedUser = userService.findByUsername(authentication.getName());
+        Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if(loggedUser.isPresent()) advertService.saveAdvert(advertDto, loggedUser.get());
-        return "redirect:advertSuccess";
+        return "redirect:/adverts/new/success";
     }
 
     @RequestMapping(value = "/adverts/{advertId}/edit", method = RequestMethod.GET)
@@ -124,7 +123,7 @@ public class AdvertController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/adverts/advertSuccess")
+    @RequestMapping(value = "/adverts/new/success")
     public String showAdvertSuccess() {
         return "advertSuccess";
     }

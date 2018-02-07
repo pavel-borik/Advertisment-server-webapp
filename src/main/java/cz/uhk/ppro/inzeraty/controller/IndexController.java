@@ -3,12 +3,11 @@ package cz.uhk.ppro.inzeraty.controller;
 import cz.uhk.ppro.inzeraty.model.Advert;
 import cz.uhk.ppro.inzeraty.model.Category;
 import cz.uhk.ppro.inzeraty.model.User;
+import cz.uhk.ppro.inzeraty.security.AuthenticationProvider;
 import cz.uhk.ppro.inzeraty.service.AdvertService;
 import cz.uhk.ppro.inzeraty.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -26,19 +25,20 @@ import java.util.Optional;
 public class IndexController {
     private final UserService userService;
     private final AdvertService advertService;
+    private final AuthenticationProvider authentication;
 
     @Autowired
-    public IndexController(UserService userService, AdvertService advertService) {
+    public IndexController(UserService userService, AdvertService advertService, AuthenticationProvider authenticationProvider) {
         this.userService = userService;
         this.advertService = advertService;
+        this.authentication = authenticationProvider;
     }
 
     @RequestMapping(value ="/", method = RequestMethod.GET)
     public String showIndex( @ModelAttribute("advert") Advert advert, ModelMap modelMap, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("/index");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.isAuthenticated()) {
-            Optional<User> user = userService.findByUsername(authentication.getName());
+        if (authentication.getAuthentication().isAuthenticated()) {
+            Optional<User> user = userService.findByUsername(authentication.getAuthentication().getName());
             if(user.isPresent()) {
                 modelMap.put("loggedUserId", user.get().getId());
             }
@@ -58,9 +58,8 @@ public class IndexController {
 
     @RequestMapping(value ="/adverts/categories/{categoryId}", method = RequestMethod.GET)
     public String showAdvertsInCategory(@PathVariable("categoryId") int categoryId, @ModelAttribute("advert") Advert advert, ModelMap modelMap, HttpServletRequest request){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.isAuthenticated()) {
-            Optional<User> user = userService.findByUsername(authentication.getName());
+        if (authentication.getAuthentication().isAuthenticated()) {
+            Optional<User> user = userService.findByUsername(authentication.getAuthentication().getName());
             if(user.isPresent()) {
                 modelMap.put("loggedUserId", user.get().getId());
             }

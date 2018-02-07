@@ -32,13 +32,13 @@ public class RegistrationController {
 
         if(userService.findByUsername(userDto.getUsername()).isPresent() == false){
             userService.createNewUser(userDto);
-            return "redirect:registration/registrationSuccess";
+            return "redirect:registration/success";
         }
 
         return "redirect:registration?unsuccesful";
     }
 
-    @RequestMapping(value = "/registration/registrationSuccess",  method = RequestMethod.GET)
+    @RequestMapping(value = "/registration/success",  method = RequestMethod.GET)
     public String showRegistrationSuccess() {
         return "registrationSuccess";
     }

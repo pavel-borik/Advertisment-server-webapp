@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: pb
-  Date: 12.11.17
-  Time: 15:00
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -25,22 +18,21 @@
         <jsp:include page="menu.jsp"/>
         <h1>Log in:</h1>
 
-        <form:form method="POST" modelAttribute="user">
+        <form method="POST" action="<c:url value='/login'/>">
             <fieldset>
-                    <div class="form-group">
-                        <label><b>Username</b></label>
-                        <form:input path="username" class="form-control" type="text" placeholder="Enter username" required ="true"/>
+                    <div class="input-field">
+                        <input name="username" type="text" placeholder="Enter username" required ="true"/>
                     </div>
-                    <div class="form-group">
-                        <label><b>Password</b></label>
-                        <form:input path="password" class="form-control" type="password" placeholder="Enter Password" id="psw" required ="true"/>
+                    <div class="input-field">
+                        <input name="password" type="password" placeholder="Enter Password" required ="true"/>
                     </div>
+                    <input type="hidden" name="${_csrf.parameterName}"value="${_csrf.token}"/>
 
                     <div class="clearfix">
                         <button type="submit" class="btn red">Log in</button>
                     </div>
             </fieldset>
-        </form:form>
+        </form>
     </div>
 
 </body>
