@@ -37,10 +37,10 @@
 
         <div id="welcome-msg-user" class="right">
             <sec:authorize access="isAuthenticated()">
-                    <spring:url value="/users/{userId}" var = "userUrl">
-                        <spring:param name="userId" value="${loggedUserId}"/>
-                    </spring:url>
-                    <span>Hello <a href="${fn:escapeXml(userUrl)}"><sec:authentication property="principal.username" /></a></span>
+                <spring:url value="/users/{userId}" var = "userUrl">
+                    <spring:param name="userId" value="${loggedUserId}"/>
+                </spring:url>
+                <span>Hello <a href="${fn:escapeXml(userUrl)}"><sec:authentication property="principal.username" /></a></span>
             </sec:authorize>
         </div>
 

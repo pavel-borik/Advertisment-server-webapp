@@ -104,7 +104,13 @@
                             <form:textarea path="ratingText" class="materialize-textarea" cols="50" rows="10" placeholder="Enter rating" required ="true" />
                         </div>
                         <div class="clearfix">
-                            <button type="submit" class="btn red">Rate user</button>
+                            <sec:authorize access="isAuthenticated()">
+                                <button type="submit" class="btn red" >Rate user</button>
+                            </sec:authorize>
+                            <sec:authorize access="isAnonymous()">
+                                <button type="submit" class="btn red" disabled>Rate user</button><br>
+                                <span class="red-text">You have to be logged in.</span>
+                            </sec:authorize>
                         </div>
                 </fieldset>
             </form:form>

@@ -14,7 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,17 +26,19 @@ import java.util.UUID;
 
 @Service
 public class AdvertService {
-    private CategoryRepository categoryRepo;
-    private AdvertRepository adRepo;
-    private CommentRepository commentRepo;
-    private ImageRepository imageRepo;
 
     @Autowired
-    public AdvertService(CategoryRepository categoryRepo, AdvertRepository adRepo, CommentRepository commentRepo, ImageRepository imageRepo) {
-        this.categoryRepo = categoryRepo;
-        this.adRepo = adRepo;
-        this.commentRepo = commentRepo;
-        this.imageRepo = imageRepo;
+    private CategoryRepository categoryRepo;
+    @Autowired
+    private AdvertRepository adRepo;
+    @Autowired
+    private CommentRepository commentRepo;
+    @Autowired
+    private ImageRepository imageRepo;
+    @Autowired
+    private ImagePersistor imagePersistor;
+
+    public AdvertService() {
     }
 
     @Transactional
@@ -52,7 +57,7 @@ public class AdvertService {
 
         for(MultipartFile f:files) {
             String imgUUID = UUID.randomUUID().toString();
-            ImagePersistor.saveImage(f, imgUUID);
+            imagePersistor.saveImage(f, imgUUID);
             AdvertImage a = new AdvertImage();
             a.setUuid(imgUUID);
             a.setAdvert(advert);
@@ -91,7 +96,22 @@ public class AdvertService {
     @Transactional
     public void removeAdvert(int advertId) {
         Optional<Advert> advert = adRepo.findById(advertId);
-        if(advert.isPresent()) adRepo.remove(advert.get());
+        if(advert.isPresent()) {
+            List<AdvertImage> advertImages = advert.get().getImages();
+            File f;
+            for(AdvertImage ai : advertImages) {
+                try {
+                    f =new File("M:/Documents/Projects/Java/Advertisment-server-webapp/src/main/webapp/resources/images/original/"+ ai.getUuid() +".jpg");
+                    Files.delete(f.toPath());
+
+                    f = new File("M:/Documents/Projects/Java/Advertisment-server-webapp/src/main/webapp/resources/images/downscaled/"+ ai.getUuid() +".jpg");
+                    Files.delete(f.toPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            adRepo.remove(advert.get());
+        }
     }
 
     @Transactional

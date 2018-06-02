@@ -61,7 +61,13 @@
                     <form:textarea path="commentText" class="materialize-textarea" placeholder="Enter a comment" required ="true" />
                 </div>
                 <div class="clearfix">
-                    <button type="submit" class="btn red">Add comment</button>
+                    <sec:authorize access="isAuthenticated()">
+                        <button type="submit" class="btn red" >Add comment</button>
+                    </sec:authorize>
+                    <sec:authorize access="isAnonymous()">
+                        <button type="submit" class="btn red" disabled>Add comment</button><br>
+                        <span class="red-text">You have to be logged in.</span>
+                    </sec:authorize>
                 </div>
             </fieldset>
         </form:form>

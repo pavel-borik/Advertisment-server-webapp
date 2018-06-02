@@ -20,39 +20,39 @@
             <h1>Register:</h1>
             <form:form method="POST" modelAttribute="user">
                 <fieldset>
-                        <div class="form-group">
-                            <label><b>Username</b><span class="text-danger">*</span></label>
-                            <form:input path="username" class="form-control" type="text" placeholder="Enter username" required ="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label><b>Password</b><span class="text-danger">*</span></label>
-                            <form:input path="password" class="form-control" type="password" placeholder="Enter password" id="psw" required ="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label><b>Repeat Password</b><span class="text-danger">*</span></label>
-                            <form:input path="passwordRepeat" class="form-control" type="password" placeholder="Repeat password" id="psw-repeat" required ="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label><b>Email</b><span class="text-danger">*</span></label>
-                            <form:input path="email" class="form-control" type="email" placeholder="Enter Email" required="true" />
-                        </div>
-                        <div class="form-group">
-                            <label><b>First name</b><span class="text-danger">*</span></label>
-                            <form:input path="firstname" class="form-control" type="text" placeholder="Enter first name" required ="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label><b>Surname</b><span class="text-danger">*</span></label>
-                            <form:input path="surname" class="form-control" type="text" placeholder="Enter surname" required ="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label><b>Phone number</b></label>
-                            <form:input path="phoneNumber" class="form-control" type="text" placeholder="Enter phone number"/>
-                        </div>
-                        <p><span class="text-danger">* = required field</span></p>
-                        <div class="clearfix">
-                            <a href="/"> <button type="button"  class="cancelbtn">Cancel</button></a>
-                            <button type="submit" class="signupbtn">Sign Up</button>
-                        </div>
+                    <div class="form-group">
+                        <label><b>Username</b><span class="text-danger">*</span></label>
+                        <form:input path="username" class="form-control" type="text" placeholder="Enter username" required ="true"/>
+                    </div>
+                    <div class="form-group">
+                        <label><b>Password</b><span class="text-danger">*</span></label>
+                        <form:input path="password" class="form-control" type="password" placeholder="Enter password" id="psw" required ="true"/>
+                    </div>
+                    <div class="form-group">
+                        <label><b>Repeat Password</b><span class="text-danger">*</span></label>
+                        <form:input path="passwordRepeat" class="form-control" type="password" placeholder="Repeat password" id="psw-repeat" required ="true"/>
+                    </div>
+                    <div class="form-group">
+                        <label><b>Email</b><span class="text-danger">*</span></label>
+                        <form:input path="email" class="form-control" type="email" placeholder="Enter Email" required="true" />
+                    </div>
+                    <div class="form-group">
+                        <label><b>First name</b><span class="text-danger">*</span></label>
+                        <form:input path="firstname" class="form-control" type="text" placeholder="Enter first name" required ="true"/>
+                    </div>
+                    <div class="form-group">
+                        <label><b>Surname</b><span class="text-danger">*</span></label>
+                        <form:input path="surname" class="form-control" type="text" placeholder="Enter surname" required ="true"/>
+                    </div>
+                    <div class="form-group">
+                        <label><b>Phone number</b></label>
+                        <form:input path="phoneNumber" class="form-control" type="text" placeholder="Enter phone number"/>
+                    </div>
+                    <p><span class="text-danger">* = required field</span></p>
+                    <div class="clearfix">
+                        <a href="/"> <button type="button"  class="cancelbtn">Cancel</button></a>
+                        <button type="submit" class="signupbtn">Sign Up</button>
+                    </div>
                 </fieldset>
             </form:form>
     </div>

@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Advertimages", schema = "inzeraty")
+@Table(name = "Advertimages", schema = "public")
 public class AdvertImage {
 
     @Id

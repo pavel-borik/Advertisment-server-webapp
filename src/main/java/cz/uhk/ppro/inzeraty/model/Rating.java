@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "Ratings", schema = "inzeraty")
+@Table(name = "Ratings", schema = "public")
 public class Rating {
     @Id
     @GeneratedValue

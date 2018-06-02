@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Indexed
-@Table(name = "Adverts", schema = "inzeraty")
+@Table(name = "Adverts", schema = "public")
 public class Advert {
     @Id
     @GeneratedValue
@@ -22,6 +22,7 @@ public class Advert {
     @NotEmpty
     private String name;
     @NotEmpty
+    @Column(columnDefinition = "TEXT")
     private String description;
     @NotNull
     private Timestamp timestamp;
